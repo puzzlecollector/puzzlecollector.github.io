@@ -15,6 +15,7 @@ function pickLocation(){
 }
 function draw(){
   background(51); 
+  text("eat the pink food that appears at random\nto increase your size!",width/2,height/2); 
   s.update(); 
   s.show();  
   if (s.eat(food)){
