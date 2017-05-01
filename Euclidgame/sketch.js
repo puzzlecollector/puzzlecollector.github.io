@@ -6,11 +6,11 @@ function setup(){
 	createCanvas(1000,1000); 
 	resetSketch();   
 	var computer = createButton("Computer");
-	computer.position(100,400);   
+	computer.position(100,500);   
 	var human = createButton("Human");
-	human.position(200,400);   
+	human.position(200,500);   
 	var refresh = createButton("Generate new numbers"); // attach event to this button 
-	refresh.position(110,450);
+	refresh.position(110,550);
 	refresh.mousePressed(resetSketch); 
 	computer.mousePressed(chk1);  
 	human.mousePressed(chk2); 
