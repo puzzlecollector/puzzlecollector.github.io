@@ -1,0 +1,28 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "10">
+	First observation: There are \(3 \times 4 \times 5 = 60\) such points in S. The number of ways 
+	we can choose 2 points from these 60 points is $$ \frac{60*59}{2} = 1770 $$ 
+	Now let's do some casework. Note that our goal is to make the x,y,z coordinates of the midpoint of 
+	the two chosen points to be integer values. Suppose the two points we chose are \(p_1,p2\).  
+	<ul> 
+		<li> All x,y,z coordinates of \(p_1,p_2\) are even. There are \(2 \times 2 \times 3 = 12\) such points in S, and there are \(\frac{12 \times 11}{2} = 66\) ways to choose such points.</li>
+		<li> All x,y,z coordinates of \(p_1,p_2\) are odd. There are \(1 \times 2 \times 2 = 4\) such points in S, and there are \(\frac{4 \times 3}{2} = 6\) ways to choose such points.</li>
+		<li> Only x coordinates of \(p_1,p_2\) are odd. Using a similar logic as above,there are 6 such points and 15 ways to 2 out of these </li> 
+		<li> Only y coordinates of \(p_1,p_2\) are odd. There are 12 such points and 66 ways to choose 2 out of these </li> 
+		<li> Only z coordinates of \(p_1,p_2\) are odd. There are 8 such points and 28 ways to choose 2 out of these </li> 
+		<li> Only x coordinates of \(p_1,p_2\) are even. There are 8 such points and 28 ways to choose 2 out of these </li> 
+		<li> Only y coordinates of \(p_1,p_2\) are even. There are 4 such points and 6 ways to choose 2 out of these </li> 
+		<li> Only z coordinates of \(p_1,p_2\) are even. There are 6 such points and 15 ways to choose 2 out of these </li> 
+	</ul>
+	Summing up we have 230 possible ways of choosing so our probability is \(\frac{23}{177}\). 
+</font> 
+</body>
+</html>
