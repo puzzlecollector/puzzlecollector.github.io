@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+	Let's observe the following first: let \(X = x_1 + x_2 +...+x_n\), then from  
+	<a href = "https://artofproblemsolving.com/wiki/index.php?title=Arithmetic_Mean-Geometric_Mean_Inequality"> AM-GM inequality </a> we get $$ X \geq n \times (x_1 \times x_2 \times...\times x_n)^{\frac{1}{n}} $$. Similarly, let \(Y = \frac{1}{x_1} + \frac{1}{x_2} + ... + \frac{1}{x_n}\), then $$ Y \geq n \times (y_1 \times y_2 \times ... \times y_n)^{\frac{1}{n}} $$. Then $$XY \geq n^2 \Rightarrow Y \geq \frac{n^2}{X} = \frac{n^2}{x_1+x_2+...+x_n} $$. Let's proceed to solving the problem now. Let \(A = a_1+a_2+...+a_{2017} \), then the given expression can be re-written as 
+	$$ \frac{a_1}{A-a_1}+\frac{a_2}{A-a_2}+...+\frac{a_{2017}}{A-a_{2017}} 
+	= \frac{A}{A-a_1}+\frac{A}{A-a_2}+...+\frac{A}{A-a_{2017}}-2017 
+	= A(\frac{1}{A-a_1}+\frac{1}{A-a_2}+...+\frac{1}{A-a_{2017}})-2017 
+	\geq A(\frac{2017^2}{(A-a_1)+(A-a_2)+...+(A-a_2017)})-2017 
+	= A(\frac{2017^2}{2017A-A})-2017 = A(\frac{2017^2}{2016A})-2017
+	= \frac{2017}{2016} = \frac{p}{q}$$
+	\(\therefore p+q = 4033 \).  
+</font> 
+</body>
+</html>
