@@ -1,0 +1,24 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+		Suppose \(n = p_{1}^{e_1}p_{2}^{e_2}...p_{n}^{e_n}\), then 
+		$$ d(n) = (e_1+1)(e_2+1)...(e_n+1) $$ 
+		This suggests that if \(n\) is a perfect square, i.e. \(e_i \equiv 0 \mod 2 \), for \(1 \leq i \leq k\), we see that \(d(n)\) is odd. Therefore we can deduce that the parity of \(S(n)\) will be affected by whether \(n\) is a perfect square or not. Let's do some calculations to get the hange of this:  
+		<ul> 
+			<li> \( S(1) \equiv S(2) \equiv S(3) \equiv 1 \mod 2\)</li> 
+			<li> \( S(4) \equiv S(5) \equiv ... \equiv S(8) \equiv 0 \mod 2\) </li>
+				... 
+		</ul>
+		So we can see that every odd perfect square and all numbers between this odd perfect square and the even perfect square are odd. Thus 
+		$$ (2^2-1^2)+(4^2-3^2)+(6^2-5^2)+...+(44^2-43^2) = 3+7+11+15+...+87 = \sum_{i=1}^{22}4i-1 = 990 = a$$.   
+		Hence, \(b = 2008-990 = 1018\), so $$ |a-b| = |990-1018| = 28 $$.  
+</font>         
+</body>
+</html>
