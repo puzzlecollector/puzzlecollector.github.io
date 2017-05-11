@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+		We know that the unit digit of \(n\) must be 2, so \(n = 10k+2\). Then 
+		$$ n^3 = (10k+2)^3 = 1000k^3 + 600k^2 + 120k + 8 \equiv 888 \mod 1000  $$ 
+		$$ \therefore 600k^2 + 120k \equiv 880 \mod 1000 $$ 
+		Dividing both sides by 40, we obtain 
+		$$ 15k^2+3k-22 \equiv 0 \mod 25 \Leftrightarrow 10k^2 \equiv 3k-22 \equiv 3k+3
+		\equiv 3(k+1) \mod 25$$
+		However, gcd(\(k^2,k+1\)) = 1, so \(10 | k+1\). If \(k=9\), then \(n = 92\), but 
+		\(92^3 \equiv 688 \mod 1000\) so this is not the answer. If  \(k=19\), then \(n = 192\), and 
+		\(192^3 \equiv 888 \mod 1000\) so \(n = 192\) is our answer. 
+</font>         
+</body>
+</html>
