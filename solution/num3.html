@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+		Before we solve this problem, let's make one observation about powers of 2. 
+		The powers of 2 have units digit that goes in cycle of 4, i.e. \(2,4,8,6\). Using this fact, 
+		$$ k \equiv 2008^2 + 2^{2008} \equiv 8^2 + 6 \equiv = 4+6 \equiv 0 \mod 10 $$ 
+		Thus \(k^2 \equiv 0 \mod 10\) and \(k = 2008^2 + 2^{2008} \) is a multiple of 4, so 
+		$$ 2^k \equiv 2^4 \equiv 6 \mod 10 $$.
+		$$ \therefore k^2 + 2^k \equiv 6 \mod 10 $$ 
+		so the units digit is 6.   
+</font>         
+</body>
+</html>
