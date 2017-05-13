@@ -1,0 +1,17 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+		If there are \(n\) pockets, let \(f(n)\) be the number of ways to put white or black balls in each of the \(n\) pockets without having the same colored balls for any three consecutive pockets. Suppose we have satisfied this requirement and have filled up to pocket \(n-2\). Then if the ball in pocket \(n-2\) is white, then we can put black balls in pockets \(n-1\) and \(n\) and if the ball in pocket \(n-2\) is black, then we can put white balls in pockets \(n-1\) and \(n\). Thus we can define this way of filling recursively as \(f(n-2)\). Similarly, suppose we have satisfied this requirement and filled all the way to pocket \(n-1\). If the ball in the pocket \(n-1\) is black, then the ball in pocket \(n\) should be white, and if the ball in the pocket \(n-1\) is white, then the ball in pocket \(n\) should be black. Then this number of ways of filling can be defined recursively as \(f(n-1)\).  Thus we can see that for \(n \geq 3 \), the recursive relationship \(f(n) = f(n-1)+f(n-2) \) holds (in fact just like the Fibonacci sequence!!!). Note that \(f(1) = 2\), \(f(2) = 4\), so 
+		$$ f(3) = 4+2 = 6, f(4) = 6+4 = 10, f(5) = 10+6 = 16, f(6) = 16+10 = 26, 
+		f(7) = 26+16 = 42, f(8) = 42+26 = 68, f(9) = 68+42 = 110, f(10) = 110+68 = 178$$ 
+		so our answer is 178. 
+	</font>         
+</body>
+</html>
