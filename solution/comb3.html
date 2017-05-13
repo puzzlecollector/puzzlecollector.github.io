@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  
+</head>
+
+<body>
+	<font size = "6">
+		We start from (0,0) and after 10 steps, we will reach some (x,y), where 
+		$$ |x| + |y| \leq 10 $$
+		Furthermore, with each step, the parity of either the x or the y coordinate will change. 
+		This means that after 10 steps, we can only be in (x,y) such that \(x+y\) is even. 
+		Since \(x\) can be any integer from -10 to 10, and for each choice of \(x\), we have 
+		$$ 11-|x| $$ possibilities for the value of y.  This means that there are totally
+		$$ 2 \times (1+2+...+10) + 11 = \boxed{121} $$ possibilites.  
+	</font>         
+</body>
+</html>
