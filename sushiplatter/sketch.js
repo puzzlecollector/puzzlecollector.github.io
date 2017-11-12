@@ -5,7 +5,7 @@ var x4,y4; // seaweed sushi 2
 var x5,y5; // salmon sushi 2  
 var x6,y6; // egg sushi 2  
 
-function setup(){
+function setup(){ // set up at start of program 
 	createCanvas(800,800); 
 	x1 = width/2; y1 = height;   
 	x2 = 0; y2 = height/2;  
@@ -114,7 +114,7 @@ function draw(){
   	if (x6 > width){
   		x6 = width/5;  
   	}
-  	if (y6 < 0){
+  	if (y6 < 0){ 
   		y6 = height-200; 
   	}
 }
