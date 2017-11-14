@@ -2,7 +2,7 @@ var input_a,button_a,input_b,button_b,input_c,button_c,calculate;
 var a,b,c;  
 var fix_a,fix_b,fix_c;  
 function setup(){
-	createCanvas(710,400); 
+	createCanvas(1000,1000); 
 	// button a 
 	input_a = createInput(); 
 	input_a.position(20,170); 
