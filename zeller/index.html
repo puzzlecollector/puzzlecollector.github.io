@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src = "libraries/p5.js" type = "text/javascript"></script> 
+  <script src = "libraries/p5.dom.js" type = "text/javascript"></script> 
+  <script src = "libraries/p5.sound.js" type = "text/javascript"></script> 
+  <script src = "libraries/p5.play.js" type = "text/javascript"></script> 
+  <script src = "sketch.js" type = "text/javascript"></script> 
+
+</head>
+<style> 
+h2{
+	position: absolute;
+	left: 100px; 
+	top: 370px; 
+}
+</style> 
+
+<body>
+	<header> <h1> Zeller's Equation </h1> </header> 
+	<p> Given the day,month and year I will calculate the day. e.g. given 01/01/1999, I will tell you that the day is Friday. The calculation is based on <a href = "https://en.wikipedia.org/wiki/Zeller%27s_congruence"> Zeller's Equation. </a> The program is not very robust. Will add robustness features later. And of course we are talking about the gregorian calender. </p> 
+	<h2 id = "res"> </h2> 
+</body>
+</html>
