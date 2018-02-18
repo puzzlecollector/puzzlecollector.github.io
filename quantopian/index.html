@@ -1,12 +1,17 @@
 <html> 
 <body> 
-<header> <h1> Algorithm trading scripts made by Luke Kim for fun </h1> </header> 
+<header> <h1> Algorithm trading scripts made by Luke Kim for fun </h1> </header>  
+  <header> <h1> Feel free to test on Quantopian </h1> </header> 
 
 <ul>
   <li> <a href = "https://github.com/iljimae0418/quantopian/blob/master/ema_crossover.py"> EMA crossover algorithm </a> 
+  <p> 
   The algorithm calculates the exponential moving average (EMA) of the apple stock for a 17 day window, and also calculates the exponential
   moving average of teh apple stock for a 40 day window. If the 17 day window EMA is greater than 40 day EMA we place order of 40% of
-  our funds and if the 40 day window EMA is greater, we sell. 
+  our funds and if the 40 day window EMA is greater, we sell. </p> 
+  <p> The backtest results were interesting. Used data from 2011-01-04 to 2018-02-16 with 10,000,000 initial funds and 
+  total return was 1059% which was better than the benchmark performance of 146%. However sharpe ratio is less than 1 but 
+  in fact most traders desire a sharpe ratio greater than 3. </p>
   </li>
 </ul>
 
