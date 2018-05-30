@@ -13,7 +13,9 @@ The host to which we need to connect is bandit.labs.overthewire.org on port 2220
 <p> While being logged in as bandit0, view the contents of the readme file using the command <code> <font size = "4.7"> <center> cat readme </center> </font> </code> </p> gives us the password "boJ9jbbUNNfktd78OOpsqOltutMc3MY1". i.e. the contents of the file readme. </p>
 <p> <center> <b> <font size = "5"> *** Level 1 -> Level 2 *** </font> </b> </center></p>  
 <p> After sshing as bandit1 after entering the password obtained in Level0 -> Level1, we need to obtain the contents of the file "-". This is a special character so we need to append "./" when calling this folder. The following code gives us the file content 
-<code> <font size = "4.7"> <center> cat ./- </center> </font> </code> </p>. We then get the password "CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9". We can then proceed to the next level and successfully login as bandit2 </p> 
+<code> <font size = "4.7"> <center> cat ./- </center> </font> </code> </p>. We then get the password "CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9". We can then proceed to the next level and successfully login as bandit2. By the way, make sure you logout by the "logout" command before logging into bandit2. </p> 
 
+<p><center><b><font size = "5"> *** Level 2 -> Level 3 *** </font></b></center></p>
+<p> This time we are logged in as bandit2 (using the password from the previous section). There is a file called "spaces in this filename". To retrieve the contents of this file the following command should do the job: <code> <font size = "4.7"> <center> cat "spaces in this filename" </center></font></code></p>. We then obtain the password "UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK". </p>   
 </body> 
 </head>
