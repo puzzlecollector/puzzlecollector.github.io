@@ -10,6 +10,10 @@ The host to which we need to connect is bandit.labs.overthewire.org on port 2220
 <center> <img src="sample level0.jpg" alt="login page" width = "500" height = "500"> </center>
 <!-- End of level 0 tutorial --> 
 <p> <center> <b> <font size = "5"> *** Level 0 -> Level 1 *** </font> </b> </center> </p> 
-<p> While being logged in as bandit0, view the contents of the readme file using the command <code> <font size = "4.7"> <center> cat readme </center> </font> </code> </p> gives us the password "boJ9jbbUNNfktd78OOpsqOltutMc3MY1". i.e. the contents of the file readme. 
+<p> While being logged in as bandit0, view the contents of the readme file using the command <code> <font size = "4.7"> <center> cat readme </center> </font> </code> </p> gives us the password "boJ9jbbUNNfktd78OOpsqOltutMc3MY1". i.e. the contents of the file readme. </p>
+<p> <center> <b> <font size = "5"> *** Level 1 -> Level 2 *** </font> </b> </center></p>  
+<p> After sshing as bandit1 after entering the password obtained in Level0 -> Level1, we need to obtain the contents of the file "-". This is a special character so we need to append "./" when calling this folder. The following code gives us the file content 
+<code> <font size = "4.7"> <center> cat ./- </center> </font> </code> </p>. We then get the password "CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9". We can then proceed to the next level and successfully login as bandit2 </p> 
+
 </body> 
 </head>
