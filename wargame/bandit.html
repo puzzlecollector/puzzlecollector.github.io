@@ -30,6 +30,15 @@ no files in the directory. But this is a trick, as there are hidden files. To lo
 <p> After logging in as bandit4, we change the directory to "inhere" and realise that there are 10 files (from -file00 to -file09). </p> 
 <p> Look at the contents of each file, and we see that -file07 contains the password we desire, "koReBOKuIDDepwhWk7jZC0RTdopnAYKh". </p> 
 
+<p><center><b><font size = "5"> *** Level 5 -> Level 6 *** </font></b></center></p> 
+<p> After logging in as bandit5, we change the directory to "inhere". We could open up all the sub directories and check all the files 
+  in each sub directories, but there are too many of them and this is just tedious. </p>
+<p> We could use the linux "find" command to make the job easier. Note that we are looking for a file that is human-readable, not executable and has size 1033 bytes. 
+  The following command does the job: 
+  <code> <font size = "4.7"> <center> find . -readable ! -executable -size 1033c </center> </font></code> </p>. 
+<p> To explain the code a little, "find ." means to start searching from this directory. -readable, ! -executable, -size 1033c are flags that matches our 
+  search requirements. We then get the result ./maybehere07/.file2 . Using <code> <font size = "4.7"> <center> cat ./maybehere07/.file2 </center></font></code> gives us the password 
+  "DXjZPULLxYr17uwoI01bNLQbtFemEgo7". </p> 
 
 
 </body> 
