@@ -1,0 +1,16 @@
+<html> 
+<body> 
+<form id = "input"> 
+<textarea rows = "50" cols = "100" name = "stuff"> Erase this prompt and enter your string here for the string length. </textarea>
+</form> 
+<button onclick = "outputLength()"> Submit </button> 
+<script> 
+function outputLength(){
+	var x = document.getElementById("input");  
+	var y = x.elements["stuff"].value
+	document.getElementById("print").innerHTML = "The length of your string is " + y.length;   
+}
+</script> 
+<p id = "print"> </p> 
+</body> 
+</html> 
