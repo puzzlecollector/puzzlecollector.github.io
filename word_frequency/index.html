@@ -1,0 +1,51 @@
+<html> 
+<body> 
+<form id = "input"> 
+<textarea rows = "30" cols = "100" name = "stuff">Erase this prompt and enter your string here for the word count and the frequency</textarea>
+</form> 
+<button onclick = "outputFrequency()"> Submit </button> 
+<script> 
+function outputFrequency(){
+	var wordsMap = {};   
+	var x = document.getElementById("input");  
+	var y = x.elements["stuff"].value;  
+	var wordsArray = []; 
+	wordsArray = y.split(/[ ,]+/).filter(Boolean);    
+	wordsArray.forEach(function (key){
+		if (wordsMap.hasOwnProperty(key)){
+			wordsMap[key]++; 
+		}else{
+			wordsMap[key] = 1;  
+		}
+	});   
+	// sort after putting inside res[] 
+	var res = []; 
+	res = Object.keys(wordsMap).map(function(key){
+		return {
+			name : key, 
+			total : wordsMap[key] 
+		};  
+	});  
+	// sort in descending order 
+	res.sort(function(a,b){
+		return b.total - a.total;  
+	});  
+	// append to output string 
+	var output = ""; 
+	for (var i = 0; i < res.length; i++){
+		output += "&nbsp&nbsp" + res[i].name + " : " + res[i].total; 
+		output += "<br>";   
+	}
+	document.getElementById("print").innerHTML = "There are " + wordsArray.length + " words\n";    
+	document.getElementById("print2").innerHTML = "This is the frequency breakdown:\n"; 
+	document.getElementById("print3").innerHTML = "<u> string : count </u>";  
+	document.getElementById("print4").innerHTML = output;  
+}	
+
+</script> 
+<p id = "print"> </p> 
+<p id = "print2"> </p> 
+<p id = "print3"> </p> 
+<p id = "print4"> </p> 
+</body>
+</html> 
