@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: 3px solid green;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+<h1> <center> Project Euler Problem Analysis </center> </h1> 
+<h2> <center> By Luke Kim </center> </h2> 
+<p> My solution codes from problems 1 to 40 can be found <a href = "https://github.com/iljimae0418/Random-Codeforces-Topcoder"> here. </a> Problem 40 is where I left off and haven't been solving project euler problems for a long time. Starting from problem 41 onwards, I will posting my analysis and my code here. The file in the above link should be labeled eulerX.cpp, where X >= 1 && X <= 40. If you want to discuss solutions to these <a href = "mailto:mkim14@stanford.edu"> email me. </a> Note that the same algorithm in python may run <b> much much</b> slower than C++. </p> 
+<p> <b> Project Euler <a href = "https://projecteuler.net/problem=41"> #41 </a> </b> </p>
+<p> A possible solution I thought of was to generate all the permutations of pandigital numbers from 1 to 9 digits. Out of all the generated numbers, I only look at the prime numbers and I update the answer. Because I'll have to look at at most 1!+2!+..+9! = 409113 numbers it shouldn't take such a long time for this brute force search. The code is not optimised and more efficient pruning could be applied to find the solution faster but I guess it does not matter for now as long as we find the answer. </p>
+<button class="collapsible">C++ Code</button>
+<div class="content">
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;iostream&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;cstdlib&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;algorithm&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;vector&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;sstream&gt; </span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">std;</span> 
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">toInt</span><span style="color: #ffffff">(string</span> <span style="color: #ffffff">s){</span>
+	<span style="color: #ffffff">istringstream</span> <span style="color: #ffffff">iss</span> <span style="color: #ffffff">(s);</span> 
+	<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">n;</span> 
+	<span style="color: #ffffff">iss</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">n;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">n;</span>  
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">bool</span> <span style="color: #ff0086; font-weight: bold">isPrime</span><span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">x){</span>
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i*i</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">x;</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(x%i</span> <span style="color: #ffffff">==</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">)</span> <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">false;</span>  
+	<span style="color: #ffffff">}</span>
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">x</span> <span style="color: #ffffff">!=</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> 
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">void</span> <span style="color: #ff0086; font-weight: bold">permute</span><span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">l,</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">r,string</span> <span style="color: #ffffff">t,vector&lt;string&gt;</span> <span style="color: #ffffff">&amp;v){</span>
+	<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(l</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">r){</span>
+		<span style="color: #ffffff">v.push_back(t);</span> 
+		<span style="color: #fb660a; font-weight: bold">return</span><span style="color: #ffffff">;</span>  
+	<span style="color: #ffffff">}</span>
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">l;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">r;</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #ffffff">swap(t[l],t[i]);</span> 
+		<span style="color: #ffffff">permute(l+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,r,t,v);</span> 
+		<span style="color: #ffffff">swap(t[l],t[i]);</span> 
+	<span style="color: #ffffff">}</span>
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">main</span><span style="color: #ffffff">(){</span> 
+	<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>  
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #0086f7; font-weight: bold">9</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #ffffff">string</span> <span style="color: #ffffff">t</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;&quot;</span><span style="color: #ffffff">;</span> 
+		<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">i;</span> <span style="color: #ffffff">j++){</span>
+			<span style="color: #ffffff">t</span> <span style="color: #ffffff">+=</span> <span style="color: #cdcaa9; font-weight: bold">char</span><span style="color: #ffffff">(j+</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">);</span> 
+		<span style="color: #ffffff">}</span>
+		<span style="color: #ffffff">vector&lt;string&gt;</span> <span style="color: #ffffff">v;</span> 
+		<span style="color: #ffffff">permute(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">,t.size()-</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,t,v);</span> 
+		<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">v.size();</span> <span style="color: #ffffff">j++){</span>
+			<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(isPrime(toInt(v[j]))){</span>
+				<span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">max(ans,toInt(v[j]));</span>  
+			<span style="color: #ffffff">}</span>
+		<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>  
+<span style="color: #ffffff">}</span>
+</pre></div>
+</div>
+<p> </p>
+<button class = "collapsible"> Python2.7 Code </button> 
+<div class = "content"> 
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">from</span> <span style="color: #ffffff">itertools</span> <span style="color: #fb660a; font-weight: bold">import</span> <span style="color: #ffffff">permutations</span> 
+<span style="color: #fb660a; font-weight: bold">import</span> <span style="color: #ffffff">math</span> 
+
+<span style="color: #fb660a; font-weight: bold">def</span> <span style="color: #ff0086; font-weight: bold">isPrime</span><span style="color: #ffffff">(x):</span> 
+	<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">x</span> <span style="color: #ffffff">&lt;</span> <span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">:</span> 
+		<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">False;</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">range(</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">,int(math.sqrt(x))+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">):</span>  
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">x%i</span> <span style="color: #ffffff">==</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">:</span>  
+			<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">False;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">True;</span> 
+
+<span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span> 
+<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">range(</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">10</span><span style="color: #ffffff">):</span> 
+	<span style="color: #ffffff">t</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;&quot;</span>
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">range(</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,i+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">):</span>  
+		<span style="color: #ffffff">t</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">str(j)</span> 
+	<span style="color: #ffffff">perm</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">permutations(t)</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">list(perm):</span>
+		<span style="color: #ffffff">x</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;&quot;</span> 
+		<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">k</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">j:</span>  
+			<span style="color: #ffffff">x</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">k</span> 
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">isPrime(int(x)):</span>  
+			<span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">max(ans,int(x))</span> 
+<span style="color: #fb660a; font-weight: bold">print</span> <span style="color: #ffffff">ans</span> 
+</pre></div>
+</div> 
+
+
+<p> <b> Project Euler <a href = "https://projecteuler.net/problem=42"> #42 </a> </b> </p> 
+<p> 
+We first have to read in all the words (delimited by a comma) from <a href = "https://projecteuler.net/project/resources/p042_words.txt"> this file.</a> Time for you to show off you file reading skills with your choice of language. After we read in everything we simply just calculate the score for each word, and check if that number can be a triangle number. There are only 2000 words in the list and each word is quite short (seems to at most ~10 characters for all of them). Just another brute force task unfortunately. 
+</p>  
+<button class="collapsible">C++ Code</button>
+<div class = "content">
+	<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;iostream&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;cstdlib&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;algorithm&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;fstream&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;sstream&gt; </span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">std;</span> 
+
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">main</span><span style="color: #ffffff">(){</span>
+	<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">cnt</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+	<span style="color: #ffffff">ifstream</span> <span style="color: #ffffff">fin(</span><span style="color: #0086d2">&quot;words.txt&quot;</span><span style="color: #ffffff">);</span> 
+	<span style="color: #ffffff">string</span> <span style="color: #ffffff">line;</span> 
+	<span style="color: #fb660a; font-weight: bold">while</span> <span style="color: #ffffff">(fin</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">line){</span>
+		<span style="color: #ffffff">stringstream</span> <span style="color: #ffffff">ss(line);</span>  
+		<span style="color: #ffffff">string</span> <span style="color: #ffffff">token;</span> 
+		<span style="color: #fb660a; font-weight: bold">while</span> <span style="color: #ffffff">(getline(ss,token,</span><span style="color: #0086d2">&#39;,&#39;</span><span style="color: #ffffff">)){</span>
+			<span style="color: #ffffff">token</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">token.substr(</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,token.size()-</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">);</span> 
+			<span style="color: #008800; font-style: italic; background-color: #0f140f">// the word is consisted only of capital letters  </span>
+			<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">score</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+			<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">token.size();</span> <span style="color: #ffffff">i++){</span>
+				<span style="color: #ffffff">score</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">token[i]-</span><span style="color: #0086d2">&#39;A&#39;</span><span style="color: #ffffff">+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> 
+			<span style="color: #ffffff">}</span>
+			<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;;</span> <span style="color: #ffffff">i++){</span>
+				<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(i*(i+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">)/</span><span style="color: #0086f7; font-weight: bold">2</span> <span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">score)</span> <span style="color: #fb660a; font-weight: bold">break</span><span style="color: #ffffff">;</span> 
+				<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(i*(i+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">)/</span><span style="color: #0086f7; font-weight: bold">2</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">score){</span>
+					<span style="color: #ffffff">cnt++;</span>
+					<span style="color: #fb660a; font-weight: bold">break</span><span style="color: #ffffff">;</span> 
+				<span style="color: #ffffff">}</span>
+			<span style="color: #ffffff">}</span>
+		<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">cnt</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+<span style="color: #ffffff">}</span>
+</pre></div>
+</div> 
+
+<p> </p> 
+<button class = "collapsible"> Python2.7 Code </button> 
+<div class = "content"> 
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">def</span> <span style="color: #ff0086; font-weight: bold">isCoded</span><span style="color: #ffffff">(s):</span>  
+	<span style="color: #ffffff">ret</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">s:</span>  
+		<span style="color: #ffffff">ret</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">ord(i)-ord(</span><span style="color: #0086d2">&#39;A&#39;</span><span style="color: #ffffff">)+</span><span style="color: #0086f7; font-weight: bold">1</span> 
+	<span style="color: #ffffff">j</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1</span> 
+	<span style="color: #fb660a; font-weight: bold">while</span> <span style="color: #ffffff">True:</span>  
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">j*(j+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">)/</span><span style="color: #0086f7; font-weight: bold">2</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">ret:</span>  
+			<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">True</span> 
+		<span style="color: #fb660a; font-weight: bold">elif</span> <span style="color: #ffffff">j*(j+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">)/</span><span style="color: #0086f7; font-weight: bold">2</span> <span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">ret:</span> 
+			<span style="color: #fb660a; font-weight: bold">break</span> 
+		<span style="color: #ffffff">j</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">j+</span><span style="color: #0086f7; font-weight: bold">1</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">False</span>  
+<span style="color: #ffffff">cnt</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span>
+<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">line</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">file(</span><span style="color: #0086d2">&quot;words.txt&quot;</span><span style="color: #ffffff">,</span><span style="color: #0086d2">&#39;r&#39;</span><span style="color: #ffffff">):</span>  
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">line.strip().split(</span><span style="color: #0086d2">&#39;,&#39;</span><span style="color: #ffffff">):</span>  
+		<span style="color: #ffffff">s</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">i[</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">:-</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">]</span> 
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">isCoded(s):</span> 
+			<span style="color: #ffffff">cnt</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">cnt+</span><span style="color: #0086f7; font-weight: bold">1</span> 
+<span style="color: #fb660a; font-weight: bold">print</span> <span style="color: #ffffff">cnt</span> 
+</pre></div>
+</div> 
+
+
+<!-- start of number 43 -->
+<p> <b> Project Euler <a href = "https://projecteuler.net/problem=43"> #43 </a> </b> </p> 
+<p> Generate all the permutations of the string "0123456789" (only 10! possibilities to search for) and check if each of d<sub>2</sub>d<sub>3</sub>d<sub>4</sub>,d<sub>3</sub>d<sub>4</sub>d<sub>5</sub> ... d<sub>7</sub>d<sub>8</sub>d<sub>9</sub> are divisible by the corresponding primes. If you are coding in languages like C++, you have to beware of overflows and I advise you to make use of 64 bit data type (long long). </p> 
+<button class = "collapsible"> C++ Code </button> 
+<div class = "content"> 
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;iostream&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;cstdlib&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;algorithm&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;sstream&gt; </span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;vector&gt; </span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">std;</span> 
+<span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ff0086; font-weight: bold">toLL</span><span style="color: #ffffff">(string</span> <span style="color: #ffffff">s){</span>
+	<span style="color: #ffffff">istringstream</span> <span style="color: #ffffff">iss(s);</span> 
+	<span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">n;</span> 
+	<span style="color: #ffffff">iss</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">n;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">n;</span> 
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">bool</span> <span style="color: #ff0086; font-weight: bold">satisfy</span><span style="color: #ffffff">(string</span> <span style="color: #ffffff">s){</span>
+	<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">prime[</span><span style="color: #0086f7; font-weight: bold">8</span><span style="color: #ffffff">]</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">{</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">3</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">5</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">7</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">11</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">13</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">17</span><span style="color: #ffffff">};</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #0086f7; font-weight: bold">7</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">x</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(s[i]-</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">)*</span><span style="color: #0086f7; font-weight: bold">100</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">(s[i+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">]-</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">)*</span><span style="color: #0086f7; font-weight: bold">10</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">(s[i+</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">]-</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">);</span> 
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(x%prime[i]</span> <span style="color: #ffffff">!=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">){</span>
+			<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">false;</span> 
+		<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">}</span>
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #ffffff">true;</span> 
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">void</span> <span style="color: #ff0086; font-weight: bold">permute</span><span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">l,</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">r,string</span> <span style="color: #ffffff">s,vector&lt;</span><span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span><span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">&amp;v){</span>
+	<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(l</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">r){</span>
+		<span style="color: #008800; font-style: italic; background-color: #0f140f">// we check here  </span>
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(satisfy(s)){</span>
+			<span style="color: #ffffff">v.push_back(toLL(s));</span> 
+		<span style="color: #ffffff">}</span>
+		<span style="color: #fb660a; font-weight: bold">return</span><span style="color: #ffffff">;</span> 
+	<span style="color: #ffffff">}</span>
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">l;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">r;</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #ffffff">swap(s[l],s[i]);</span> 
+		<span style="color: #ffffff">permute(l+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,r,s,v);</span>  
+		<span style="color: #ffffff">swap(s[l],s[i]);</span> 
+	<span style="color: #ffffff">}</span>
+<span style="color: #ffffff">}</span>
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">main</span><span style="color: #ffffff">(){</span>	
+	<span style="color: #ffffff">string</span> <span style="color: #ffffff">s</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;0123456789&quot;</span><span style="color: #ffffff">;</span> 
+	<span style="color: #ffffff">vector&lt;</span><span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span><span style="color: #ffffff">&gt;</span> <span style="color: #ffffff">v;</span> 
+	<span style="color: #ffffff">permute(</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">,s.size()-</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,s,v);</span> 
+	<span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">v.size();</span> <span style="color: #ffffff">i++){</span>
+		<span style="color: #ffffff">ans</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span><span style="color: #ffffff">)v[i];</span> 
+	<span style="color: #ffffff">}</span>
+	<span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+	<span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span>  
+<span style="color: #ffffff">}</span>
+</pre></div>
+</div>
+<p> </p>
+<button class = "collapsible"> Python2.7 Code </button> 
+<div class = "content"> 
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #fb660a; font-weight: bold">from</span> <span style="color: #ffffff">itertools</span> <span style="color: #fb660a; font-weight: bold">import</span> <span style="color: #ffffff">permutations</span> 
+<span style="color: #fb660a; font-weight: bold">import</span> <span style="color: #ffffff">math</span> 
+<span style="color: #ffffff">p</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">[</span><span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">3</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">5</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">7</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">11</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">13</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">17</span><span style="color: #ffffff">]</span>
+<span style="color: #ffffff">s</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&quot;0123456789&quot;</span>
+<span style="color: #ffffff">perm</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">permutations(s)</span> 
+<span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span> 
+<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">perm:</span> 
+	<span style="color: #ffffff">passed</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">True</span> 
+	<span style="color: #ffffff">t</span> <span style="color: #ffffff">=</span> <span style="color: #0086d2">&#39;&#39;</span><span style="color: #ffffff">.join(i)</span> 
+	<span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">in</span> <span style="color: #ffffff">range(</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">,</span><span style="color: #0086f7; font-weight: bold">8</span><span style="color: #ffffff">):</span>  
+		<span style="color: #ffffff">k</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(ord(t[j])-ord(</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">))*</span><span style="color: #0086f7; font-weight: bold">100</span><span style="color: #ffffff">+(ord(t[j+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">])-ord(</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">))*</span><span style="color: #0086f7; font-weight: bold">10</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">(ord(t[j+</span><span style="color: #0086f7; font-weight: bold">2</span><span style="color: #ffffff">])-ord(</span><span style="color: #0086d2">&#39;0&#39;</span><span style="color: #ffffff">))</span> 
+		<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">k%p[j]</span> <span style="color: #ffffff">!=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">:</span> 
+			<span style="color: #ffffff">passed</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">False</span> 
+			<span style="color: #fb660a; font-weight: bold">break</span><span style="color: #ffffff">;</span> 
+	<span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">passed:</span> 
+		<span style="color: #ffffff">ans</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">int(t)</span> 
+<span style="color: #fb660a; font-weight: bold">print</span> <span style="color: #ffffff">ans</span> 
+</pre></div>
+</div> 
+
+
+<p> <b> Project Euler <a href ="https://projecteuler.net/problem=44"> #44 </a> </b> </p> 
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
