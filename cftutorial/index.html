@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: 3px solid green;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+
+
+<h1> Codeforces Div2 C level problems </h1> 
+<h2> Analysis by Luke Kim </h2> 
+<p> Div2 C level problems are probably what's preventing us to get beyond the specialist rating on codeforces. Let's practice a lot of them and make breakthroughs into new terrains </p> 
+<p> <b> <a href = "https://codeforces.com/problemset/problem/987/C"> <center> 1. Three Displays (Div 2 Round 485) </center> </a> </b> </p> 
+<p> <b> Difficulty </b>: &#9733; </p>
+<p> <b> Type </b>: Brute Force </p> 
+<p> <b> Time complexity </b>: O(n <sup> 2 </sup>) 
+<p> <b> Analysis </b>: Because of the constraint that n is less than or equal to 3000, we can brute force for the solution with time complexity of O(n <sup> 2 </sup>). A possible way to do this is to fix j, then for each i where 0 &#x2266; i &lt j, if s[j] > s[i], then update the minimum possible cost we can for i for this particular j. Do the same for k for all j+1 &#x2266; k &lt n. The final answer would be min(minimum cost for i for chosen j + cost for j + minimum cost for k for chosen j).</p> 
+<button class="collapsible">C++ Code</button>
+<div class="content">
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;iostream&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;cstdlib&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;algorithm&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;vector&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;map&gt; </span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">std;</span> 
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#define IOFAST() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); </span>
+<span style="color: #fb660a; font-weight: bold">const</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">INF</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span><span style="color: #ffffff">)</span><span style="color: #0086f7; font-weight: bold">2e17</span><span style="color: #ffffff">+</span><span style="color: #0086f7; font-weight: bold">88</span><span style="color: #ffffff">;</span> 
+<span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">s[</span><span style="color: #0086f7; font-weight: bold">3005</span><span style="color: #ffffff">];</span> 
+<span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">c[</span><span style="color: #0086f7; font-weight: bold">3005</span><span style="color: #ffffff">];</span> 
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">main</span><span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">argc,</span><span style="color: #cdcaa9; font-weight: bold">char</span> <span style="color: #ffffff">*argv[]){</span>
+    <span style="color: #ffffff">IOFAST();</span>   
+    <span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">n;</span> 
+    <span style="color: #ffffff">cin</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">n;</span>  
+    <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">n;</span> <span style="color: #ffffff">i++){</span>
+        <span style="color: #ffffff">cin</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">s[i];</span> 
+    <span style="color: #ffffff">}</span>
+    <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">n;</span> <span style="color: #ffffff">i++){</span>
+        <span style="color: #ffffff">cin</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">c[i];</span> 
+    <span style="color: #ffffff">}</span>
+    <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">INF;</span> 
+    <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">j</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">n;</span> <span style="color: #ffffff">j++){</span>
+        <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">min_cost_i</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">INF,</span> <span style="color: #ffffff">min_cost_k</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">INF;</span>  
+        <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">i</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">j;</span> <span style="color: #ffffff">i++){</span>
+            <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(s[i]</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">s[j])</span> <span style="color: #ffffff">min_cost_i</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">min(min_cost_i,c[i]);</span>  
+        <span style="color: #ffffff">}</span>
+        <span style="color: #fb660a; font-weight: bold">for</span> <span style="color: #ffffff">(</span><span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ffffff">k</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">j+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> <span style="color: #ffffff">k</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">n;</span> <span style="color: #ffffff">k++){</span>
+            <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(s[j]</span> <span style="color: #ffffff">&lt;</span> <span style="color: #ffffff">s[k])</span> <span style="color: #ffffff">min_cost_k</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">min(min_cost_k,c[k]);</span>  
+        <span style="color: #ffffff">}</span>
+        <span style="color: #ffffff">ans</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">min(ans,min_cost_i</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">c[j]</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">min_cost_k);</span> 
+    <span style="color: #ffffff">}</span>
+    <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(ans</span> <span style="color: #ffffff">==</span> <span style="color: #ffffff">INF)</span> <span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">-</span><span style="color: #0086f7; font-weight: bold">1</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+    <span style="color: #fb660a; font-weight: bold">else</span> <span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">ans</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+<span style="color: #ffffff">}</span>
+</pre></div>
+
+</div> 
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
