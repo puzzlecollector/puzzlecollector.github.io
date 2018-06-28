@@ -1,0 +1,35 @@
+<html> 
+<body> 
+<form id = "input1"> 
+<textarea rows = "10" cols = "10" name = "field1">Enter first integer </textarea> 
+</form>
+<form id = "input2"> 
+<textarea rows = "10" cols = "10" name = "field2">Enter second integer </textarea>
+</form> 
+<button onclick = "gcd()"> Submit </button> 
+<script> 
+function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
+}
+function calc(a,b){
+	if (b == 0) return Math.abs(a);  
+	else return calc(b,a%b); 
+}
+function gcd(){
+	var x1 = document.getElementById("input1"); 
+	var y1 = x1.elements["field1"].value; 
+	var x2 = document.getElementById("input2"); 
+	var y2 = x2.elements["field2"].value; 
+	if (!isInt(y1) || !isInt(y2)){
+		document.getElementById("print").innerHTML = "Some or all of your inputs are not integers or there has been an overflow"
+	}else{
+		var ans = calc(y1,y2);  
+		document.getElementById("print").innerHTML = "The gcd of the two numbers is " + ans + "\n"; 
+	} 
+}
+</script> 
+<p id = "print"> </p>
+</body> 
+</html> 
