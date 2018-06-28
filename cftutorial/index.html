@@ -34,6 +34,7 @@
 <h1> Codeforces Div2 C level problems </h1> 
 <h2> Analysis by Luke Kim </h2> 
 <p> Div2 C level problems are probably what's preventing us to get beyond the specialist rating on codeforces. Let's practice a lot of them and make breakthroughs into new terrains!! </p> 
+<p> It is also meaningful to study C problems as a division2 contestant, since C problems are also A problems in division1. This means that problem C in division2 is the first "difficult" problem that requires non trivial algorithmic thinking. </p> 
 <p> <b> <a href = "https://codeforces.com/problemset/problem/987/C"> <center> 1. Three Displays (Div 2 Round 485) </center> </a> </b> </p> 
 <p> <b> Difficulty </b>: &#9733; </p>
 <p> <b> Type </b>: Brute Force </p> 
@@ -81,7 +82,7 @@
 
 <p> <b> <a href = "https://codeforces.com/contest/834/problem/C"> <center> 2. The Meaningless Game (Div 2 Round 426) </center> </a> </b> </p> 
 <p> <b> Difficulty </b>: &#9733;&#9733;&#9733; </p>
-<p> <b> Type </b>: Math, Prime Numbers </p> 
+<p> <b> Type </b>: Math, Prime Numbers, Binary Search </p> 
 <p> <b> Time complexity </b>: O(nlog(ab)) 
 <p> <b> Analysis </b>: Initially I thought about the following algorithm - given a,b I multiply ab, then prime factorize this number. I then check whether each of its prime factors have exponent equal to 3. If not then it must not be the answer. This method most likely times out because ab can be at most 10<sup> 18 </sup>, and the prime factorization algorithm that I know of runs in O(sqrt(ab)) time complexity. What makes it worse is that there will at most 350000 queries. This means that I need another method. I tried various method until I forfeited and read the tutorial. The tutorial's reasoning was quite simple. Given a,b, define S as the numbers called out by Slastyona and P as the result called out by Pushok. Since a represents the results of Slastyona and b represents the result of Pushok respectively, we must have a = S <sup> 2 </sup>P and b = SP<sup>2</sup>. Furthemore ab = S<sup>3</sup>P<sup>3</sup>. Now S = S<sup>2</sup>P/SP = a/&#8731;ab. Similarly P = SP<sup>2</sup>/SP = b/&#8731;ab. This means that we have to check two things. 
 <ol> 
@@ -124,8 +125,50 @@ We implement condition 1 using binary search, which has time complexity of O(log
     <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
 <span style="color: #ffffff">}</span>
 </pre></div>
-
 </div> 
+
+<p> <b> <a href = "https://codeforces.com/problemset/problem/991/C"> <center> 3. Candies (Div 2 Round 491) </center> </a> </b> </p> 
+<p> <b> Difficulty </b>: &#9733; </p>
+<p> <b> Type </b>: Binary Search, Simulation </p> 
+<p> <b> Time complexity </b>: O(log(n)<sup> 2 </sup>) 
+<p> <b> Analysis </b>: After reading the problem I realised instantly that choosing the appropriate value of k would require binary search over the space [1,n]. However, for each binary search we do, we have to check if the value of k we chose is appropriate or not. Wouldn't this checking function that too much time because n is at most 10 <sup> 18 </sup>? It turns out that simply simulating the entire process is quick enough. In fact the checking function is capped by at most 500 (probably even less but this is just a rough estimate) steps because note that 10 <sup> 18 </sup> * (0.9) <sup> 500 </sup> is already a very small value that is close to zero. This shows that at each step n decreases exponentially. As a result we can binary search for the appropriate k and just code up a simulation of what's described in the problem for our checking function. </p> 
+<button class="collapsible">C++ Code</button>
+<div class="content">
+<!-- HTML generated using hilite.me --><div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;iostream&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;cstdlib&gt;</span>
+<span style="color: #ff0007; font-weight: bold; font-style: italic; background-color: #0f140f">#include &lt;algorithm&gt;</span>
+<span style="color: #fb660a; font-weight: bold">using</span> <span style="color: #fb660a; font-weight: bold">namespace</span> <span style="color: #ffffff">std;</span>  
+<span style="color: #fb660a; font-weight: bold">typedef</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #cdcaa9; font-weight: bold">long</span> <span style="color: #ffffff">ll;</span> 
+<span style="color: #cdcaa9; font-weight: bold">bool</span> <span style="color: #ff0086; font-weight: bold">ok</span><span style="color: #ffffff">(ll</span> <span style="color: #ffffff">x,ll</span> <span style="color: #ffffff">n){</span>
+    <span style="color: #ffffff">ll</span> <span style="color: #ffffff">vasya</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> <span style="color: #008800; font-style: italic; background-color: #0f140f">// amount eaten by vasya</span>
+    <span style="color: #ffffff">ll</span> <span style="color: #ffffff">temp</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">n;</span>   
+    <span style="color: #fb660a; font-weight: bold">while</span> <span style="color: #ffffff">(temp){</span>
+        <span style="color: #ffffff">vasya</span> <span style="color: #ffffff">+=</span> <span style="color: #ffffff">min(x,temp);</span> 
+        <span style="color: #ffffff">temp</span> <span style="color: #ffffff">-=</span> <span style="color: #ffffff">min(x,temp);</span> 
+        <span style="color: #ffffff">temp</span> <span style="color: #ffffff">-=</span> <span style="color: #ffffff">temp/</span><span style="color: #0086f7; font-weight: bold">10</span><span style="color: #ffffff">;</span> <span style="color: #008800; font-style: italic; background-color: #0f140f">// reduce by ceiling of 10% </span>
+    <span style="color: #ffffff">}</span>
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">2LL</span><span style="color: #ffffff">*vasya</span> <span style="color: #ffffff">&gt;=</span> <span style="color: #ffffff">n;</span> 
+<span style="color: #ffffff">}</span> 
+<span style="color: #cdcaa9; font-weight: bold">int</span> <span style="color: #ff0086; font-weight: bold">main</span><span style="color: #ffffff">(){</span>
+    <span style="color: #ffffff">ll</span> <span style="color: #ffffff">n;</span>  
+    <span style="color: #ffffff">cin</span> <span style="color: #ffffff">&gt;&gt;</span> <span style="color: #ffffff">n;</span> 
+    <span style="color: #ffffff">ll</span> <span style="color: #ffffff">l</span> <span style="color: #ffffff">=</span> <span style="color: #0086f7; font-weight: bold">1LL</span><span style="color: #ffffff">,</span> <span style="color: #ffffff">r</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">n;</span>  
+    <span style="color: #fb660a; font-weight: bold">while</span> <span style="color: #ffffff">(l</span> <span style="color: #ffffff">&lt;=</span> <span style="color: #ffffff">r){</span>
+        <span style="color: #ffffff">ll</span> <span style="color: #ffffff">mid</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">(l+r)&gt;&gt;</span><span style="color: #0086f7; font-weight: bold">1LL</span><span style="color: #ffffff">;</span>  
+        <span style="color: #fb660a; font-weight: bold">if</span> <span style="color: #ffffff">(ok(mid,n)){</span>
+            <span style="color: #ffffff">r</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">mid-</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> 
+        <span style="color: #ffffff">}</span><span style="color: #fb660a; font-weight: bold">else</span><span style="color: #ffffff">{</span>
+            <span style="color: #ffffff">l</span> <span style="color: #ffffff">=</span> <span style="color: #ffffff">mid+</span><span style="color: #0086f7; font-weight: bold">1</span><span style="color: #ffffff">;</span> 
+        <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">}</span>
+    <span style="color: #ffffff">cout</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">l</span> <span style="color: #ffffff">&lt;&lt;</span> <span style="color: #ffffff">endl;</span> 
+    <span style="color: #fb660a; font-weight: bold">return</span> <span style="color: #0086f7; font-weight: bold">0</span><span style="color: #ffffff">;</span> 
+<span style="color: #ffffff">}</span>
+</pre></div>
+</div> 
+
+
+
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
