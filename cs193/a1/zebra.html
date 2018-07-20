@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html lang = "en"> 
+<head> 
+<meta charset="UTF-8">
+<title> Stanford Data </title>  
+<style> 
+p.serif{
+	font-family:serif;
+	font-style:italic;
+}
+table{
+	width: 40%;
+	font-family: sans-serif;
+}
+table, th, td{
+	border: 1px solid black; 
+	border-collapse: collapse; 
+}
+th, td{
+	padding: 14px; 
+}
+table#geolocation tr:nth-child(odd){ /* Because program treats header as row 1*/
+	background-color: #EEE;
+}
+table#geolocation tr:nth-child(even){
+	background-color: #FFF; 
+}
+table#geolocation th{
+	border-color: white;
+	background-color: black;
+	color: white;
+}
+</style> 
+</head> 
+<body> 
+<h1> Geographic Origin of Stanford Undergrads </h1> 
+<table id = "geolocation">  
+	<tr> 
+		<th> Geographic Origin </th> 
+		<th> Number of Students </th>
+	</tr> 
+	<tr> 
+		<td> California </td> 
+		<td> 2,943 </td> 
+	</tr> 
+	<tr>
+		<td> Other US </td> 
+		<td> 3,447 </td> 
+	</tr> 
+	<tr> 
+		<td> Asia </td> 
+		<td> 264 </td> 
+	</tr> 
+	<tr> 
+		<td> The Americas </td> 
+		<td> 83 </td> 
+	</tr> 
+	<tr> 
+		<td> Europe </td> 
+		<td> 69 </td> 
+	</tr> 
+	<tr> 
+		<td> Africa </td> 
+		<td> 44 </td> 
+	</tr> 
+	<tr> 
+		<td> Middle East and North Africa </td> 
+		<td> 22 </td> 
+	</tr> 
+	<tr> 
+		<td> Pacific Basin </td> 
+		<td> 6 </td> 
+	</tr> 
+</table> 
+<p class = "serif"> Source: Stanford Facts Website </p>  
+</body> 
+</html> 
