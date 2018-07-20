@@ -1,0 +1,153 @@
+<!DOCTYPE html> 
+<html lang = "en">
+<head> 
+<title> Book search </title> 
+<meta charset="UTF-8">
+<style>
+#all {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	font-family: serif;
+}
+.heading{
+	text-align: center;  
+	-webkit-transform:scale(5,3); /* safari and chrome stretching */ 
+	-moz-transform:scale(5,3); /* mozilla stretching */  
+}
+.entry{
+	border: 2px solid black; 
+	margin: 25px 0px 0px 0px;
+	height: 600px;
+	margin-top: 40px;
+}
+input[type = text]{
+	width: 80px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid black;
+    outline:none;
+    background: #b0e0e6;
+}
+input[type = button]{
+	background:#b0e0e6;
+	border: 2px solid red;
+	color: red;
+	height:30px;
+	margin: 4px;
+}
+.author{
+	margin-left: 260px; 
+	margin-top: 60px;
+	font-size:15pt;
+}
+.booktitle{
+	margin-left: 260px; 
+	margin-top: 20px; 
+	font-size:15pt;
+}
+.positionButton{
+	margin-left:434px; 
+	margin-top: 20px;
+}
+.textdecoration{
+	margin-top:20px;
+	margin-left:260px;
+	border:2px solid black;
+	background: white;
+	resize:none;
+	width: 500px;
+	height: 300px;
+	overflow: scroll;
+}
+</style> 
+</head> 
+<body style = "background-color:powderblue"> 
+<div id = "all">
+	<h1 class = "heading"> bookland </h1>
+	<div class = "entry">
+		<div style = "display:inline-block;vertical-align:top;"> 
+		<form id = "input"> 
+			<div class = "author">Author name: <input type = "text" style = "height:25px;width:230px;margin-left:60px;" name = "name" id = "b1"/></div>
+
+
+			<div id = "titleid" class = "booktitle">Book title:<input type = "text" style = "height:25px;width:230px;margin-left:90px;" name = "title" id = "b2"/></div>
+		</form>  
+
+
+			<div class = "positionButton"><input type = "button" value = "Find book" style = "width:100px;" onclick = "findDescription()"/>
+			<input type = "button" value = "Clear Info" style = "width:100px;" onclick = "clearInfo()"/>
+			</div>
+
+
+			<div class = "textdecoration"> 
+				<p id = "display"> </p> 
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+/************ a list of global variables ************/ 
+var author = ["Thomas Mann","James Joyce","E. M. Forster","Isabel Allende","Isabel Allende"]; 
+var title = ["Death in Venice","A portrait of the artist as a young man","A room with a view","The house of spirits","Of love and shadows"]; 
+var s1 = "One of the most famous literary works of the twentieth century, this novella embodies themes that preoccupied Thomas Mann in much of his work: the duality of art and life, the presence of death and disintegration in the midst of existence, the connection between love and suffering and the conflict between the artist and his inner self.";  
+var s2 = "This book is a fictional re-creation of the Irish writer's own life and early environment. The experiences of the novel's young hero, unfold in astonishingly vivid scenes that seem freshly recalled from life and provide a powerful portrait of the coming of age of a young man of unusual intelligence, sensitivity and character."; 
+var s3 = "This work displays an unusually perceptive view of British society in the early 20th century.It is a social comedy set in Florence, Italy, and Surrey, England. Its heroine, Lucy Honey church,struggling against straitlaced Victorian attitudes of arrogance, narroe mindedness and sobbery, falls in love - while on holiday in Italy - with the socially unsuitable George Emerson.";
+var s4 = "Allende describes the life of three generations of a prominent family in Chile and skillfully combines with this all the main historical events of the time, up until Pinochet's dictatorship."; 
+var s5 = "The whole world of Irene Beltran, a young reporter in Chile at the time of the dictatorship, is destroyed when she discovers a series of killings carried out by government soldiers. With the help of a photographer, Francisco Leal, and risking her life, she tries to come up with evidence against the dictatorship."; 
+var description = [s1,s2,s3,s4,s5]; 
+
+/************ Start of functions ************/ 
+// case insensitive
+// just prints the first match as opposed to all matches  
+function findDescription(){
+	var a = document.getElementById("input"); 
+	var auth_name = a.elements["name"].value; 
+	var book_title = a.elements["title"].value; 
+	var prompt = false; 
+	if (auth_name === "" && book_title === ""){
+		document.getElementById("display").innerHTML = "Book not found"; 
+		prompt = true; 
+	}else if (auth_name !== "" && book_title === ""){
+		for (var i = 0; i < author.length; i++){
+			if (author[i].toLowerCase() == auth_name.toLowerCase()){
+				document.getElementById("display").innerHTML = description[i]; 
+				prompt = true;  
+				break; 
+			}
+		}
+	}else if (auth_name === "" && book_title !== ""){
+		for (var i = 0; i < title.length; i++){
+			if (book_title.toLowerCase() == title[i].toLowerCase()){
+				document.getElementById("display").innerHTML = description[i]; 
+				prompt = true; 
+				break; 
+			}
+		}
+	}else{
+		for (var i = 0; i < author.length; i++){
+			if (auth_name.toLowerCase() == author[i].toLowerCase() && book_title.toLowerCase() == title[i].toLowerCase()){
+				document.getElementById("display").innerHTML = description[i]; 
+				prompt = true; 
+				break; 
+			}
+		}
+	}
+	if (prompt === false){
+		document.getElementById("display").innerHTML = "Book not found";
+	}
+	//console.log(auth_name); 
+}
+
+function clearInfo(){
+	document.getElementById("b1").value = ""; 
+	document.getElementById("b2").value = ""; 
+	document.getElementById("display").innerHTML = ""; 
+}
+</script>
+</body>
+</html> 

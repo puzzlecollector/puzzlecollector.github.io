@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Graduation</title>
+<style>
+    #theForm {
+        display: flex;
+        align-items: flex-start;
+    }
+    #theButtons {
+        display: flex;
+        flex-direction: column;
+    }
+    input {
+        margin: 3px;
+    }
+</style>
+</head>
+<body>
+    <p>The <code>map</code> method on JavaScript arrays takes an array of items,
+    calls a function on each item in the array, and  collects the results from 
+    the function calls in another array.</p>
+
+    <p>In this example, we have a list of fictional grad students.  When we click on
+        the button, they will all earn their doctorates.
+    </p>
+
+    <p>Rewrite this example using arrow functions to eliminate both the <code>grantDoctorate</code>
+    and the <code>graduateEveryone</code> functions.  If you're still a bit confused as to how
+    arrow functions work, you may want to first try replacing the <code>graduateEveryone</code>
+    function with an arrow function and then only after you have that working, replace
+    the <code>grantDoctorate</code> function with an arrow function. </p>
+
+    <form id="theForm">
+    <textarea rows="5" cols="20" id="students" readonly>
+Jack Ryan
+Julia Kelly
+Ellie Sattler
+Ian Malcolm
+Emmett Brown
+    </textarea>
+    <div id="theButtons">
+    <input type="button" value="Graduate" id="graduate" />
+    <input type="reset" />
+    </div>
+     </form>
+    <script>
+        var students = [
+            "Jack Ryan",
+            "Julia Kelly",
+            "Ellie Sattler",
+            "Ian Malcolm",
+            "Emmett Brown"
+        ]
+
+        function grantDoctorate(student) {
+            return "Dr. " + student;
+        }
+
+        /*function graduateEveryone() {
+            var graduatedArray = students.map(grantDoctorate);
+            document.getElementById("students").value = graduatedArray.join("\n");
+        }*/ 
+        document.getElementById("graduate").addEventListener(
+            "click",
+             () => {
+                var graduatedArray = students.map((student) => {
+            return "Dr. " + student; 
+                });
+                document.getElementById("students").value = graduatedArray.join("\n");
+            }   
+        ); 
+    </script>
+</body>
+</html>

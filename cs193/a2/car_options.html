@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang = "en"> 
+<head> 
+<title> Configure Your GT Super Sportscar </title> 
+<meta charset="UTF-8">
+<style> 
+* {
+    box-sizing: border-box;
+}
+#all {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 1000px;
+}
+.bigger{
+	font-size:24px;
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 15px;
+}
+.entry1{
+	background-color: white;  
+	font-family: sans-serif;
+	border: 1px solid black;
+	height: 210px;
+}
+.entry2{
+	background-color: white; 
+	font-family: sans-serif;  
+	border: 1px solid black;
+	height: 190px;
+}
+.entry3{
+	margin-top: 20px;
+	background-color: white; 
+	font-family:sans-serif;
+	border:1px solid black;
+	height: 320px;
+}
+.entry4{
+	margin-top: 20px; 
+	background-color: white; 
+	font-family:sans-serif;
+	border:1px solid black;
+	height: 205px;
+}
+.entry5{
+	margin-top:20px;
+	background-color:white;
+	font-family: sans-serif;
+	border: 1px solid black;
+	height: 120px;
+}
+.headbar{
+	border: 1.5px solid black;
+	padding: 10px;
+	background-color: gray; 
+	color:white;
+	font-weight: bold;
+	font-size: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top:10px;
+}	
+.amount{
+	margin-top:6px;
+	margin-left:220px; 
+	margin-bottom:15px;
+}
+.amountop1{
+	margin-top: 10px;
+	margin-left: 39px;
+}
+.amountop2{
+	margin-top: 47px;
+	margin-left: 39px;
+
+}
+.amountop3{
+	margin-top: 120px;
+	margin-left: 89px;
+}
+.carpos{
+	display: block;
+	margin-left: 195px;
+	margin-top: -30px;
+}
+</style> 
+
+
+</head>
+<body> 
+<div id = "all">
+<h1 style = "font-size: 40px"> Configure Your GT Super Sportscar </h1> 
+<!-- First Column --> 
+<form id = "first_col"> 
+<div class = "column"> 
+<div class = "entry1"> 
+	<div class = "headbar"> <span class = "bigger">C</span>ONFIGURATION</div>
+
+	<div style = "display:inline-block;vertical-align:top;"> 
+	<div><input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "config" id = "GTManual"/>GT Manual</div> 
+
+	<div><input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "config" id = "GTAutomatic"/>GT Automatic</div>
+
+	<div><input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "config" id = "GT-SManual"/>GT-S Manual</div>
+
+	<div><input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "config" id = "GT-SSportshift"/>GT-S Sportshift</div>
+	</div> 
+
+	<div style = "display:inline-block;vertical-align:top;">
+	<div class = "amount"> $17,790.00 </div>
+	<div class = "amount"> $18,590.00 </div>
+	<div class = "amount"> $22,455.00 </div>
+	<div class = "amount"> $23,155.00 </div>
+	</div>
+</div> 
+<div class = "entry3"> 
+	<div class = "headbar"> <span class = "bigger">F</span>ACTORY <span class = "bigger"> O</span>PTIONS</div>
+<div style = "display:inline-block;vertical-align:top;"> 
+		<div> <input style = "margin-left:20px;margin-top:15px;margin-bottom:10px;" type = "radio" name = "option" id = "opc1"/>Option Combo #1 <span style = "margin-left:215px;">$1235.00</span> <ul style='list-style-position: inside; margin-top:-2px;'> <li>Power Windows, Doors, Cruise Control</li> </ul>
+		</div> 
+		<div> <input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "option" id = "opc2"/>Option Combo #2 <span style = "margin-left:215px;">$3354.00</span> <ul style='list-style-position: inside; margin-top:-2px;'> <li>Rear Spoiler and Fog Lamps</li> <li>Keyless Entry</li><li>Power Tilt & Slide Moonroof</li><li>Power Windows, Doors, Cruise Control</li></ul>
+		</div> 
+		<div> <input style = "margin-left:20px;margin-top:10px;margin-bottom:10px;" type = "radio" name = "option" id = "nc"/>No Combo <span style = "margin-left:314px;">$0</span>
+		</div>
+</div> 
+</div> 
+
+<div class = "entry4">
+	<div class = "headbar"> <span class = "bigger">D</span>EALER <span class = "bigger"> O</span>PTIONS</div>
+<div style = "display:inline-block;vertical-align:top;">
+	<div> <input type = "checkbox" style = "margin-left:20px;margin-top:20px;margin-bottom:10px;" name = "dealer"/>Upgraded Stereo System <span style = "margin-left:178px;">$550.00</span>
+	</div> 
+	<div> <input type = "checkbox" style = "margin-left:20px;margin-top:15px;margin-bottom:10px;" name = "dealer"/>VIP Security System <span style = "margin-left:212px;">$399.00</span>
+	</div>  
+	<div> <input type = "checkbox" style = "margin-left:20px;margin-top:15px;margin-bottom:10px;" name = "dealer"/>Auto-Dimming Mirror <span style = "margin-left:210px;">$295.00</span>
+	</div> 
+</div> 
+</div>
+
+<div class = "entry5">
+	<div class = "headbar"> <span class = "bigger">T</span>OTAL <span class = "bigger"> P</span>RICE</div>
+	<input type = "text" size = "24" style = "margin-left:20px;margin-top:15px;margin-bottom:10px;" id = "print" value = ""/> <input type = "button" value = "Calculate Total" style = "margin-left:160px;" onclick = "displayTotal()"/>
+</div> 
+
+</div>
+</form> 
+<!-- Second Column --> 
+<form id = "second_column"> 
+<div class = "column"> 
+<div class = "entry2">
+	<div class = "headbar"><span class = "bigger">C</span>HOOSE <span class = "bigger">A C</span>OLOR</div>
+<select style = "margin-left:15px;margin-top:15px;" name = "carcolors"> 
+	<option value = "red.jpg"> red </option> 
+	<option value = "blue.jpg"> blue </option> 
+	<option value = "silver.jpg"> silver </option> 
+	<option value = "white.jpg"> white </option> 
+	<option value = "black.jpg"> black </option> 
+</select>
+<img class = "carpos" id = "photo" src = "red.jpg" alt = "car photo"/> 
+</div> <!-- entry2 --> 
+</div> 
+</form> 
+</div>
+<script> 
+// For changing car photos 
+function setPhoto(){
+	document.getElementById('photo').src = document.getElementById("second_column").carcolors.value; 
+}
+for (select of document.getElementsByTagName("select")){
+	select.addEventListener("change",setPhoto,false); 
+}
+// For de-selecting radio button for configuration
+var radios_config = document.getElementsByName("config"); 
+var cur;  
+for (var x = 0; x < radios_config.length; x++){
+	radios_config[x].onclick = function(){
+		if (cur == this){
+			this.checked = false; 
+			cur = null;  
+		}else{
+			cur = this; 
+		}
+	}
+}
+// For de-selecting radio button for Factory Options 
+var radios_options = document.getElementsByName("option");  
+var cur2; 
+for (var y = 0; y < radios_options.length; y++){
+	radios_options[y].onclick = function(){
+		if (cur2 == this){
+			this.checked = false; 
+			cur2 = null;  
+		}else{
+			cur2 = this; 
+		}
+	}
+}
+// For calculating the total amount 
+var checkboxes_dealer = document.getElementsByName("dealer"); 
+var config_price = [17790,18590,22455,23155]; 
+var options_price = [1235,3354,0];  
+var dealer_price = [550,399,295];  
+function displayTotal(){
+	var total = 0;  
+	for (var i = 0; i < radios_config.length; i++){
+		if (radios_config[i].checked){
+			total += config_price[i];  
+		}
+	}
+	for (var i = 0; i < radios_options.length; i++){
+		if (radios_options[i].checked){
+			total += options_price[i];  
+		}
+	}
+	for (var i = 0; i < checkboxes_dealer.length; i++){
+		if (checkboxes_dealer[i].checked){
+			total += dealer_price[i];  
+		}	
+	}	
+	//console.log(total);
+	var str = total.toLocaleString();   
+	document.getElementById("print").value = "$" + str + ".00";     
+}
+</script> 
+</body> 
+</html> 

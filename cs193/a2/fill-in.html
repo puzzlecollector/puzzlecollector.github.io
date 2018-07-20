@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Form Reminder</title>
+<style>
+    #warning {
+        display: none;
+    }
+</style>
+</head>
+<body>
+<p>Three seconds after loading, this webpage changes the background color of
+    the text field and adds a text reminder for the user to fill in their name.
+    On a real website, this would be combined with a mechanism that canceled
+    the timer if the user entered their name, but we're keeping this simple.
+</p>
+<p>Go into the source code for this file and replace the traditional use of
+    the function <code>warnUser</code> with an arrow function.
+</p>
+<p>
+<input type="text" id="textField" />
+<span id="warning">Fill me in!!!</span>
+</p>
+<script>
+    /*function warnUser() {
+        document.getElementById("textField").style.backgroundColor = "red";
+        document.getElementById("warning").style.display = "inline";
+    }*/  
+    window.setTimeout(() => {
+        document.getElementById("textField").style.backgroundColor = "red";
+        document.getElementById("warning").style.display = "inline";
+    },3000);
+</script>
+</body>
+</html>
