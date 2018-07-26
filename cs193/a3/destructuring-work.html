@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Destructuring Workfile</title>
+</head>
+<body>
+    <h1>Destructuring Workfile</h1>
+
+    <p>Modify this file by filing in JavaScript code where marked // WRITE YOUR CODE HERE.</p>
+    <p>There are two different sections marked you need to fill in code.</p>
+
+    <p>Name: <input type="text" id="nameTxt" /><br >
+    If you've written your code correctly, this text field should have the text "Molly" in it
+    when the webpage loads.</p>
+
+    <p>Year: <input type="text" id="yearTxt" /><br >
+        If you've written your code correctly, this text field should have the text "Frosh" in it.</p>
+ 
+    <p>First Dorm: <input type="text" id="firstTxt" /><br >
+        If you've written your code correctly, this text field should have the text "FloMo" in it.</p>
+
+    <p>Second Dorm: <input type="text" id="secondTxt" /><br >
+        If you've written your code correctly, this text field should have the text "Lag" in it.</p>
+
+    <p>Fifth Dorm: <input type="text" id="fifthTxt" /><br >
+        If you've written your code correctly, this text field should have the text "Roble" in it.</p>
+            
+
+<script>
+    // someone has written some code that returns a whole bunch of data
+    function getData () {
+        return {
+            name: "Molly",
+            age: 12,
+            dorm: "Florence Moore Hall",
+            year: "Frosh",
+            species: "Canine"
+        }
+    }
+
+    // Call the getData function.
+    // You are only interested in the name and year values returned.  Use destructuring to 
+    // store them in variables name and year
+    // You must use destructuring to get credit for this assignment.
+
+// WRITE YOUR CODE HERE
+    var {name,year} = getData();  
+
+    document.getElementById("nameTxt").value = name;
+    document.getElementById("yearTxt").value = year;
+
+    // someone has written a function which returns a list of Stanford dorms
+    function getDorms() {
+        return ["FloMo", "Lag", "Wilbur", "Stern", "Roble", "FroSoCo"];
+    }
+
+    // Call the getDorms function.
+    // Write code that pulls out the first, second and fifth items listed and
+    // stores them in the variables first, second, and fifth
+    // (I'm numbering starting with 1, so first is "FloMo", and fifth is "Roble"
+    // You must use destructuring to get credit for this assignment.
+
+// WRITE YOUR CODE HERE
+    var [first,second, , ,fifth] = getDorms(); 
+    document.getElementById("firstTxt").value = first;
+    document.getElementById("secondTxt").value = second;
+    document.getElementById("fifthTxt").value = fifth;
+</script>
+</body>
+</html>

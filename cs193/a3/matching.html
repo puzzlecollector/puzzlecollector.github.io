@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>   
+<title> Matching </title> 
+<meta charset="UTF-8" />
+<style>
+#all {
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 2000px;
+	font-family: sans-serif;
+}
+.f1{
+	margin: 25px 25px 25px 25px;
+}
+.f2{
+	margin: 25px 25px 25px 25px;
+}
+.f3{
+	margin: 25px 25px 25px 25px;
+}
+.f4{
+	margin: 25px 25px 25px 25px;
+}
+.f5{
+	margin: 25px 25px 25px 25px;
+}
+.f6{
+	margin: 25px 25px 25px 25px;
+}
+.button{
+	position:relative;
+	top:45px; 
+	right: 1050px;
+	font-size:15pt; 
+}
+</style> 
+</head> 
+<body onload = "shuffle()">
+<div id = "all"> 
+
+<img class = "f1" src = "back.png" id = "first" onclick = "first_clicked()" alt = "card1"/> 
+<img class = "f2" src = "back.png" id = "second" onclick = "second_clicked()" alt = "card2"/> 
+<img class = "f3" src = "back.png" id = "third" onclick = "third_clicked()" alt = "card3"/> 
+<img class = "f4" src = "back.png" id = "fourth" onclick = "fourth_clicked()" alt = "card4"/> 
+<img class = "f5" src = "back.png" id = "fifth" onclick = "fifth_clicked()" alt = "card5"/> 
+<img class = "f6" src = "back.png" id = "sixth" onclick = "sixth_clicked()" alt = "card6"/> 
+
+<button class = "button" type = "button" onclick = "shuffle()"> Restart Game </button> 
+</div> 
+<script> 
+var clicked = 0;  
+var opened = []; 
+var card_types = ["1clubs.png","2clubs.png","3clubs.png","1hearts.png","2hearts.png","3hearts.png"]; 
+var enumerate = ["first","second","third","fourth","fifth","sixth"];  
+// called upon page load and when we press the restart button 
+function shuffle(){
+	// let's put all the cards face down first 
+	var i1 = document.getElementById("first"); 
+	i1.src = "back.png"; 
+	var i2 = document.getElementById("second"); 
+	i2.src = "back.png"; 
+	var i3 = document.getElementById("third"); 
+	i3.src = "back.png"; 
+	var i4 = document.getElementById("fourth");
+	i4.src = "back.png"; 
+	var i5 = document.getElementById("fifth"); 
+	i5.src = "back.png"; 
+	var i6 = document.getElementById("sixth"); 
+	i6.src = "back.png"; 
+	// knuth shuffle
+	var idx = card_types.length; 
+	while (0 !== idx){
+		var ridx = Math.floor(Math.random()*idx); 
+		idx = idx-1;   
+		var temp = card_types[idx]; 
+		card_types[idx] = card_types[ridx]; 
+		card_types[ridx] = temp; 
+	}
+}
+// this is where we match or we flip back 
+function process(){
+	var firstIdx,secondIdx; 
+	for (var i = 0; i < enumerate.length; i++){
+		if (opened[0] === enumerate[i]){
+			firstIdx = i; 
+		}
+		if (opened[1] === enumerate[i]){
+			secondIdx = i; 
+		}
+	}
+	if (card_types[firstIdx][0] === card_types[secondIdx][0]){
+		// they have the same numbers  
+		for (var i = 0; i < opened.length; i++){
+			var cur_opened = document.getElementById(opened[i]); 
+			cur_opened.src = "clear.png"; 
+		}
+	}else{
+		for (var i = 0; i < opened.length; i++){
+			var cur_opened = document.getElementById(opened[i]); 
+			cur_opened.src = "back.png"; 
+		}
+	}
+	clicked = 0; 
+	opened = []; 
+}
+function first_clicked(){ 
+	var image = document.getElementById("first"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[0];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("first"); 
+	}else if (opened.length === 1 && opened[0] !== "first"){
+		clicked = clicked+1; 
+		opened.push("first"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1; // prevent card flip while processing
+		setTimeout(process,1500);
+	}
+}
+function second_clicked(){
+	var image = document.getElementById("second"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[1];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("second"); 
+	}else if (opened.length === 1 && opened[0] !== "second"){
+		clicked = clicked+1; 
+		opened.push("second"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1;
+		setTimeout(process,1500);  
+	}
+}
+function third_clicked(){
+	var image = document.getElementById("third"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[2];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("third"); 
+	}else if (opened.length === 1 && opened[0] !== "third"){
+		clicked = clicked+1; 
+		opened.push("third"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1; 
+		setTimeout(process,1500); 
+	}
+}
+function fourth_clicked(){ 
+	var image = document.getElementById("fourth"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[3];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("fourth"); 
+	}else if (opened.length === 1 && opened[0] !== "fourth"){
+		clicked = clicked+1; 
+		opened.push("fourth"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1;
+		setTimeout(process,1500);
+	}
+}
+function fifth_clicked(){
+	var image = document.getElementById("fifth"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[4];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("fifth"); 
+	}else if (opened.length === 1 && opened[0] !== "fifth"){
+		clicked = clicked+1; 
+		opened.push("fifth"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1;
+		setTimeout(process,1500);
+	}
+}
+function sixth_clicked(){
+	var image = document.getElementById("sixth"); 
+	if (image.getAttribute('src') === "clear.png"){
+		return; // do nothing 
+	}
+	if (image.getAttribute('src') === "back.png" && clicked < 2){
+		image.src = card_types[5];  
+	}
+	if (opened.length === 0){
+		clicked = clicked+1; 
+		opened.push("sixth"); 
+	}else if (opened.length === 1 && opened[0] !== "sixth"){
+		clicked = clicked+1; 
+		opened.push("sixth"); 
+	} 
+	if (clicked === 2){
+		// we have two cards open 
+		// we open for 1.5 seconds 
+		// if match change src of both to clear.png  
+		// if not flip back 
+		clicked = clicked + 1;
+		setTimeout(process,1500);
+	}
+}
+</script> 
+</body> 
+</html> 

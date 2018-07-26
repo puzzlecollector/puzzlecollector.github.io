@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>   
+<title> Bay Area Colleges and Universities </title> 
+<meta charset="UTF-8" />
+<style> 
+* {
+    box-sizing: border-box;
+}
+#all {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 1000px;
+	font-family: sans-serif;
+}
+.heading{
+	font-size:40pt;
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 15px;
+}
+.searchBox{
+	margin-left: 150px;
+	border: 1px solid black;
+	width: 450px;
+	height: 330px;
+}
+.searchBoxHeading{
+	padding: 2px 2px 2px 2px;
+	background-color: black; 
+	height: 45px;
+	color: white;
+	font-weight: bold; 
+	text-align: center; 
+	font-size: 30px;
+}
+.position_buttons{
+	position: relative;
+	left: 40px;
+	font-size: 15pt; 
+}
+.smaller{
+	font-size: 10pt;
+}
+.tuitionInfo{
+	position: relative; 
+	right: 20px;
+	padding: 10px 5px 5px 5px; 
+}
+.maxSATInfo{
+	position: relative; 
+	right: 20px;
+	padding: 10px 5px 5px 5px; 
+
+}
+.minSATInfo{
+	position: relative; 
+	right: 20px;
+	padding: 10px 5px 5px 5px; 
+}
+.button{
+	color:black;
+	font-size:20pt;
+	position: relative; 
+	top: 20px;
+	left: 150px;
+}
+table{
+	width: 600px;
+}
+table, th, td{
+	border: 1px solid black; 
+	border-collapse: collapse; 
+}
+th, td{
+	padding: 14px; 
+}
+table#colleges tr:nth-child(odd){ /* Because program treats header as row 1*/
+	background-color: #EEE;
+}
+table#colleges tr:nth-child(even){
+	background-color: #FFF; 
+}
+table#colleges th{
+	border-color:gray;
+	background-color: black;
+	color: white;
+	font-weight: bold; 
+}
+</style> 
+</head> 
+<body> 
+<div id = "all"> 
+	<h1 class = "heading"> Bay Area Colleges and Universities </h1>
+	<!-- First Column --> 
+	<form id = "first_col"> 
+	<div class = "column"> 
+		<table id = "colleges">
+			<tr> 
+				<th> Name </th>
+				<th> SAT High </th> 
+				<th> SAT Low </th> 
+				<th> Tuition </th> 
+			</tr>
+			<tr>
+				<td> Stanford </td> 
+				<td> 1570 </td> 
+				<td> 1380 </td> 
+				<td> 44757 </td>
+			</tr> 
+			<tr> 
+				<td> UC Berkeley </td> 
+				<td> 1500 </td> 
+				<td> 1250 </td> 
+				<td> 13844 </td> 
+			</tr> 
+			<tr> 
+				<td> UC Santa Cruz </td> 
+				<td> 1280 </td> 
+				<td> 1000 </td> 
+				<td> 13398 </td> 
+			</tr> 
+			<tr> 
+				<td> SFSU </td> 
+				<td> 1110 </td> 
+				<td> 880 </td> 
+				<td> 6468 </td> 
+			</tr> 
+			<tr> 
+				<td> SJSU </td> 
+				<td> 1160 </td> 
+				<td> 880 </td> 
+				<td> 9496 </td> 
+			</tr> 
+			<tr> 
+				<td> Sonoma State </td> 
+				<td> 1090 </td> 
+				<td> 880 </td> 
+				<td> 7276 </td> 
+			</tr> 
+			<tr> 
+				<td> CalState East Bay </td> 
+				<td> 1010 </td> 
+				<td> 800 </td> 
+				<td> 6550 </td> 
+			</tr> 
+			<tr>
+				<td> USF </td> 
+				<td> 1270 </td> 
+				<td> 1070 </td> 
+				<td> 41450 </td> 
+			</tr> 
+			<tr> 
+				<td> SCU </td> 
+				<td> 1380 </td> 
+				<td> 1190 </td> 
+				<td> 43812 </td> 
+			</tr> 
+			<tr> 
+				<td> Mills College </td> 
+				<td> 1250 </td> 
+				<td> 1040 </td> 
+				<td> 42918 </td> 
+		</table>	
+	</div> 
+	</form> 
+	<!-- Second Column --> 
+	<form id = "second_col"> 
+	<div class = "column"> 
+	<div class = "searchBox"> 
+		<div class = "searchBoxHeading"> Search Criteria </div> 
+		<div class = "position_buttons">
+		<label><input style = "display:inline-block;margin-left:20px;margin-top:10px;margin-bottom:10px;font-size:30pt;" type = "radio" name = "type" id = "public"/>Public</label>  
+		<label><input style = "display:inline-block;margin-left:20px;margin-top:10px;margin-bottom:10px;font-size:30pt;" type = "radio" name = "type" id = "private"/>Private</label> 
+		<label><input style = "display:inline-block;margin-left:20px;margin-top:10px;margin-bottom:10px;font-size:30pt;" type = "radio" name = "type" id = "dont_care"/>Don't Care</label>
+		<div class = "tuitionInfo"> Maximum Tuition<br><span class = "smaller">leave blank for don't care</span><input style = "position:relative;left:120px;bottom:20px;height:40px;" type = "text" name = "tuition" id = "maxTuition"/></div> 
+		<div class = "maxSATInfo"> Maximum High SAT<br><span class = "smaller">leave blank for don't care</span><input style = "position:relative;left:120px;bottom:20px;height:40px;" type = "text" name = "maxSAT" id = "maxSATScore"/></div>
+		<div class = "minSATInfo"> Minimum Low SAT<br><span class = "smaller">leave blank for don't care</span><input style = "position:relative;left:120px;bottom:20px;height:40px;" type = "text" name = "minSAT" id = "minSATScore"/></div> 
+		</div>  
+	</div> 
+	<button type = "button" class = "button" onclick = "chk()">Update</button>
+	</div>
+	</form> 
+</div>
+<script>
+// For de-selecting radio button for type (public,private,etc)
+var radios_type = document.getElementsByName("type"); 
+var cur;  
+for (var x = 0; x < radios_type.length; x++){
+	radios_type[x].onclick = function(){
+		if (cur == this){
+			this.checked = false; 
+			cur = null;  
+		}else{
+			cur = this; 
+		}
+	}
+}
+var ownership_arr = ["skip","private","public","public","public","public","public","public","private","private","private"];  
+function chk(){
+	var ownership = ""; // check what type of ownership 
+	for (var i = 0; i < radios_type.length; i++){
+		if (radios_type[i].checked){
+			if (i == 0){
+				ownership = "public";  
+			}else if (i == 1){
+				ownership = "private"; 
+			}  
+		}
+	}
+	var maxTuition = -1, maxSAT = -1, minSAT = -1; 
+	maxTuition = document.getElementById("maxTuition").value; 
+	maxSAT = document.getElementById("maxSATScore").value;  
+	minSAT = document.getElementById("minSATScore").value; 
+	if (minSAT === ""){
+		minSAT = 0; 
+	}
+	if (maxSAT === ""){
+		maxSAT = 999999;  // some large value 
+	}
+	if (maxTuition === ""){
+		maxTuition = 999999999; // some large value 
+	}
+	// now let's iterate over our table elements 
+	var table = document.getElementById("colleges"); 
+	var tr = table.getElementsByTagName("tr"); 
+	for (var i = 0; i < tr.length; i++){
+		if (i == 0) continue; // skip the header 
+		var td1 = tr[i].getElementsByTagName("td")[3];  
+		var td2 = tr[i].getElementsByTagName("td")[1]; 
+		var td3 = tr[i].getElementsByTagName("td")[2]; 
+		var td4 = tr[i].getElementsByTagName("td")[0]; 
+		var cur_tuition,cur_max_sat,cur_min_sat,cur_name; 
+		if (td1){
+			cur_tuition = td1.innerHTML;  
+		}
+		if (td2){
+			cur_max_sat = td2.innerHTML; 
+		}
+		if (td3){
+			cur_min_sat = td3.innerHTML;  
+		}
+		if (td4){
+			cur_name = td4.innerHTML; 
+		}
+		// now the comparison begins here  
+		if (ownership === ""){
+			if (parseInt(cur_tuition,10) <= parseInt(maxTuition,10) && parseInt(cur_max_sat,10) <= parseInt(maxSAT,10) && parseInt(cur_min_sat,10) >= parseInt(minSAT,10)){
+				tr[i].style.display = ""; 
+			}else{ 
+				tr[i].style.display = "none"; 
+			}
+		}else{
+			if (parseInt(cur_tuition,10) <= parseInt(maxTuition,10) && parseInt(cur_max_sat,10) <= parseInt(maxSAT,10) && parseInt(cur_min_sat,10) >= parseInt(minSAT,10) && ownership === ownership_arr[i]){
+				tr[i].style.display = ""; 
+			}else{
+				tr[i].style.display = "none"; 
+			}
+		}
+	}  
+}
+</script> 
+</body> 
+</html> 
