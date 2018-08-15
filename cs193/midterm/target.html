@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title> Bullseye Target </title>
+<style>
+#all{
+	margin-top: 30px;
+	font-family: sans-serif;
+}
+.slider{
+	position: absolute;
+	top: 200px;
+	transform: rotate(90deg);
+	-webkit-appearance: none;
+    background: white;
+    border: 2px solid black;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: red;
+    cursor: pointer;
+}
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #4CAF50;
+    cursor: pointer;
+}
+.center{
+	position:absolute;
+	left:50%;
+}
+</style> 
+
+<body id = "all" onload = "displaySlider();draw();"> 
+	<h1> Bullseye Target </h1> 
+	<p> Rings:<input type = "text" id = "input" value = "5" /></p>
+	<div class = "slide"> 
+		<input type = "range" min = "10" max = "100" value = "10"
+		class = "slider" id = "myRange"/> 
+		<p> <span id = "out" style = "position:absolute;left:120px;top:180px;"></span></p> 
+	</div> 
+	<div class = "center"> 
+		<canvas id = "draw" width="1000" height="1000"> <!-- Figure is drawn here --> </canvas>  
+	</div>
+<script> 
+var n = 5; // number of rings 
+var l = 10; // length of the innermost square 
+var prev_n = 5; 
+var prev_l = 10;  
+function displaySlider(){
+	var slider = document.getElementById("myRange"); 
+	var output = document.getElementById("out");  
+	output.innerHTML = slider.value;  
+	slider.oninput = function(){
+		output.innerHTML = this.value; 
+	}
+}
+function draw(){
+	var c = document.getElementById("draw");
+	n = document.getElementById("input").value; 	
+	l = document.getElementById("myRange").value;  
+	if (prev_n !== parseInt(n) || prev_l !== parseInt(l)){
+		var context = c.getContext('2d');  
+		context.clearRect(0,0,c.width,c.height); 
+		prev_n = n;  
+		prev_l = l;  
+	}
+	var X = 30, Y = 30;  
+	for (var i = parseInt(n); i >= 1; i--){
+		var ctx = c.getContext("2d"); 
+		if (i%2 === 0){
+			ctx.fillStyle = "blue"; 
+		}else{
+			ctx.fillStyle = "red"; 
+		} 
+		ctx.fillRect(X,Y,parseInt(l)*(2*parseInt(i)-1),parseInt(l)*(2*parseInt(i)-1));  
+		ctx.stroke(); 
+		X += parseInt(l);  
+		Y += parseInt(l);   
+	} 
+}
+setInterval(draw, 1000); // let's set it to run every second
+</script> 
+</body> 
+</head> 
