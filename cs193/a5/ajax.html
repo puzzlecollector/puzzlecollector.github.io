@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html lang = "en"> 
+<head> 
+<title> open weather </title> 
+<style>
+
+</style> 
+</head> 
+
+<body>
+	<h1> Open Weather via AJAX </h1> 
+	<br>
+	<p style = "font-weight:bold;"> Enter ZIP code: <input type = "text" id = "input"/> <input type = "button" id = "getInfo" value = "Get Weather" onclick = "display()"/> <input type = "button" id = "clear" value = "clear" onclick = "initialize()"/></p> 
+	<textarea style = "width:400px;height:200px;" id = "display"></textarea>
+<script>
+function display(){
+	var zipcode = document.getElementById("input").value;  
+	var process = new XMLHttpRequest(); 
+	process.open("GET","http://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&units=imperial&APPID=b0672bc624aba129ef36ab5994ffe420");
+	process.addEventListener("load",function(){
+		if (process.status == 200 && process.readyState == 4){
+			// status = 200 means ok and 403 is forbidden, 404 is page not found 
+			// readyState = 4 means request finished and response is ready  
+			var result = JSON.parse(process.responseText);  
+			document.getElementById("display").value += result.name + " : " + result.main.temp + "\n"; 
+		}else{
+			alert("error retrieving data! Possibly zipcode not found..."); 
+		}
+	})
+	process.send(null);  
+}
+function initialize(){
+	document.getElementById("display").value = "";  
+}
+</script> 
+</body> 
+</html> 
