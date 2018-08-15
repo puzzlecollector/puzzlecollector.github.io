@@ -1,6 +1,22 @@
 <html> 
-<body> 
-<header> <h1> JS + HTML + CSS programs made by Luke Kim for fun </h1> </header> 
+<header>
+<style> 
+#all{
+	background-color: #F0F8FF; 
+}
+.effect{
+	-webkit-animation:colorchange 8s infinite alternate;
+}
+@-webkit-keyframes colorchange {	
+	0% {color: red;} 
+	25% {color: black;}
+	50% {color: #00FF00;} 
+	100% {color: blue;}
+}
+</style> 
+</header> 
+<body id = "all"> 
+<h1 class = "effect"> JS + HTML + CSS + Ajax + JQuery + Node programs <br> Made by Luke Kim for fun </h1> 
 	
 <p> <b> <a href = "http://web.stanford.edu/class/cs193c/">Stanford CS 193C: Client Side Internet Technology</a> Class Assignments </b> </p> 
 <ul> 
@@ -27,8 +43,12 @@
 		</ul> 
 	<li> Fourth Assignment </li>
 		<ul> 
-			<li> <a href = https://iljimae0418.github.io/cs193/a4/gallery.html""> Stanford Gallery </a> </li>
+			<li> <a href = "https://iljimae0418.github.io/cs193/a4/gallery.html"> Stanford Gallery </a> </li>
 			<li> <a href = "https://iljimae0418.github.io/cs193/a4/stanford_maps.html"> Draggable, interactive Stanford Maps </a> </li>
+		</ul> 
+	<li> Midterm </li>
+		<ul> 
+			<li> <a href = "https://iljimae0418.github.io/cs193/midterm/target.html"> Display alternating blue and red square rings. <br> Allow user to vary the length and the number of rings being displayed. </a> </li>
 		</ul> 
 </ul> 
 
