@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Stanford Maps</title>
+<style>
+#all {
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	width: 2000px;
+	font-family: sans-serif;
+}
+.dragme{
+	position: relative; 
+}
+.container{
+	position: relative; 
+	left: 20px;
+	border: 25px solid gray;
+	width: 800px;
+	height:500px;
+	overflow: hidden;
+}
+.bplus{
+	position: relative; 
+	left:940px;
+	bottom:500px;
+	background-color: #e7e7e7;
+	padding: 10px 20px;
+}
+.bminus{
+	position: relative; 
+	left:980px;
+	bottom:500px; 
+	background-color: #e7e7e7; 
+	padding: 10px 20px;
+}
+.bup{
+	position:relative;
+	left: 880px;
+	bottom: 440px;
+	background-color: #e7e7e7;  
+	padding: 10px 20px;
+}
+.bdown{
+	position:relative;
+	left:830px;
+	bottom: 350px;
+	background-color: #e7e7e7;  
+	padding: 10px 20px;
+}
+.bleft{
+	position:relative;
+	left:710px;
+	bottom:395px;
+	background-color:#e7e7e7;
+	padding: 10px 20px;
+}
+.bright{
+	position:relative;
+	left:780px;
+	bottom:395px;
+	background-color:#e7e7e7;
+	padding: 10px 20px;
+}
+</style> 
+<body id = "all"> 
+
+<div class = "container" id = "container">
+	<img src = "map-m.gif" alt = 'map' class = "dragme" id = "map" ondblclick = "adjust"/>
+</div>
+<div class = "buttons">
+	<button class = "bplus" id = "plus" onclick = "zoomin()">+</button> 
+	<button class = "bminus" id = "minus" onclick = "zoomout()">-</button> 
+	<button class = "bup" id = "up" onclick = "up()">&#8593</button> 
+	<button class = "bdown" id ="down" onclick = "down()">&#8595</button> 
+	<button class = "bleft" id = "left" onclick = "left()">&#8592</button> 
+	<button class = "bright" id = "right" onclick = "right()">&#8594</button>
+</div>
+
+<script>  
+function zoomin(){
+	var k = document.getElementById("map"); 
+	if (k.getAttribute('src') === "map-m.gif"){
+		k.src = "map-l.gif"; 
+	}else if (k.getAttribute('src') === "map-l.gif"){
+		k.src = "map-xl.gif"; 
+	}else if (k.getAttribute('src') === "map-xl.gif"){
+		return; 
+	}else if (k.getAttribute('src') === "map-s.gif"){
+		k.src = "map-m.gif"; 
+	}
+}
+function zoomout(){
+	var k = document.getElementById("map"); 
+	if (k.getAttribute('src') === "map-xl.gif"){
+		k.src = "map-l.gif"; 
+	}else if (k.getAttribute('src') === "map-l.gif"){
+		k.src = "map-m.gif"; 
+	}else if (k.getAttribute('src') === "map-m.gif"){
+		k.src = "map-s.gif";  
+	}else if (k.getAttribute('src') === "map-s.gif"){
+		return; 
+	}
+}
+function up(){	
+	var img = document.getElementById("map"); 
+	var rect = img.getBoundingClientRect(); 
+	var m = rect.height*0.5;  
+	var curY = rect.top; 
+	console.log(curY); 
+	document.getElementById("map").style.top = (curY - m) + "px"; 
+	console.log(document.getElementById("map").style.top); 
+}
+function down(){
+	var img = document.getElementById("map"); 
+	var rect = img.getBoundingClientRect(); 
+	var m = rect.height*0.5;  
+	var curY = rect.top;  
+	document.getElementById("map").style.top = (curY + m) + "px"; 
+}
+function left(){
+	var img = document.getElementById("map"); 
+	var rect = img.getBoundingClientRect(); 
+	var m = rect.width*0.5; 
+	var curX = rect.left; 
+	document.getElementById("map").style.left = (curX - m) + "px"; 
+}
+function right(){
+	var img = document.getElementById("map"); 
+	var rect = img.getBoundingClientRect(); 
+	var m = rect.width*0.5; 
+	var curX = rect.left; 
+	document.getElementById("map").style.left = (curX + m) + "px";
+}
+var drag, offsetX,offsetY,targ;  
+var coordX,coordY;  
+function adjust(event){
+	targ = event.target; 
+	if (targ !== document.getElementById("map")) return; 
+	var img = document.getElementById("container"); 
+	var rect = img.getBoundingClientRect(); 
+	var cx = rect.left + rect.width*0.5; 
+	var cy = rect.top + rect.height*0.5;
+	var curX = parseInt(document.getElementById("map").style.left);  
+	var curY = parseInt(document.getElementById("map").style.top); 
+	document.getElementById("map").style.left = curX-(event.clientX-cx)+"px";  
+	document.getElementById("map").style.top = curY-(event.clientY-cy)+"px";  
+}
+document.addEventListener("dblclick",adjust); 
+function dragFrame(e){	
+	if (!e) {
+		var e = window.event;
+	}
+	if(e.preventDefault){
+		document.getElementById("map").style.cursor = "move"; 
+		e.preventDefault();
+	}
+    targ = e.target; 
+	if (targ.className != 'dragme'){ 
+		return
+	};
+	offsetX = e.clientX;
+	offsetY = e.clientY;
+	if(!targ.style.left) { targ.style.left='0px'};
+	if (!targ.style.top) { targ.style.top='0px'};
+	coordX = parseInt(targ.style.left);
+	coordY = parseInt(targ.style.top);
+	drag = true;
+	document.onmousemove = dragDiv;
+	return false;
+}
+function dragDiv(e) {
+	if (!drag) {return};
+	if (!e) {
+		var e = window.event
+	};
+	targ.style.left = coordX + e.clientX - offsetX + "px";
+	targ.style.top = coordY + e.clientY - offsetY + "px";
+	return false;
+}
+function stopDrag() {
+	document.getElementById("map").style.cursor = "default"; 
+	drag = false;
+}
+window.onload = function() {
+	document.onmousedown = dragFrame;
+	document.onmouseup = stopDrag;
+}        
+</script> 
+</body> 
+</html> 

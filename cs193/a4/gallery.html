@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Stanford Gallery</title>
+<style>
+#all {
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 2000px;
+	font-family: sans-serif;
+}
+#caption {
+	padding: 10px;
+	box-sizing: border-box;
+	color: white;
+	font-size: 14pt;
+	font-family: sans-serif;
+	background-color: #008800;
+	opacity: 0.5;
+}
+.center{
+	position:absolute;
+	left:50%;
+	margin-left:-400px;
+	width:800px;
+	height:600px;
+}
+.captionText{
+	position: absolute;
+	bottom: 1px;
+	height: 80px;
+	width:800px;
+}
+.leftButton{
+	position: absolute; 
+	bottom: 300px;
+
+}
+.rightButton{
+	position: absolute; 
+	bottom: 300px;
+	right: 0%;
+}
+.previous{
+	background-color: #f1f1f1;  
+	color: black;
+}
+.next{
+	background-color: #f1f1f1;  
+	color: black;
+}
+.round{
+	border-radius: 50%;
+}
+</style>
+</head>
+<body id = "all">
+<div id="photoSection" class = "center">
+<img  id='photo' src='memchu.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+Stanford Memorial Church - the church used to have an 80' bell tower, which fell in the 1906 earthquake.
+</div>
+
+
+<img  id='photo' src='quad.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+The Stanford Quad
+</div>
+
+<img  id='photo' src='hoop.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+The <i>Red Hoop Fountain</i> with Green Library in the background.
+</div>
+
+
+<img  id='photo' src='memorial-court.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+Memorial Court (in the front of the Quad) with Rodin's <i>Burghers of Calais</i> statues.
+</div>
+
+<img  id='photo' src='gates.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+The Gates Building - home of Stanford Computer Science.
+</div>
+
+<img  id='photo' src='stone-river.jpg' alt='photo' name = "picture"/>
+<div id="caption" class = "captionText " name = "cap">
+The Stone River statue near the Cantor Arts Center (Stanford's own art museum).
+</div>
+
+
+
+
+<div id="forwardOverlay"><button onclick = "plus(-1)" class = "leftButton round previous">&#8249</button></div>
+<div id="backwardOverlay"><button onclick = "plus(1)" class = "rightButton round next">&#8250</button></div>
+</div>
+<script>
+var slide = 1; 
+show(slide);
+function plus(n){
+	show(slide += n);  
+}
+function show(n){
+	console.log("clicked!"); 
+	var x = document.getElementsByName("picture");
+	var y = document.getElementsByName("cap");   
+	if (n > x.length) {
+		slide = 1;  
+	}
+	if (n < 1){
+		slide = x.length; 
+	}
+	for (var i = 0; i < x.length; i++){
+		x[i].style.display = "none";  
+		y[i].style.display = "none"; 
+	}
+	x[slide-1].style.display = "block";  
+	y[slide-1].style.display = "block"; 
+}
+</script>
+</body>
+</html>
