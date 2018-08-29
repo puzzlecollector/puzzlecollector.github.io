@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style> 
+a:hover{
+    	background-color: yellow; /* Fuchsia */  
+}
+#all {
+	background:#F0F8FF;
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 800px;
+}
+.heading{
+	text-align: center;
+	font-size: 50px;
+	padding: 18px;
+	background-color: #FFDEAD;
+	color: white;
+	border: 3px solid red;
+    font-weight: bold;
+    -webkit-animation:colorchange 8s infinite alternate;
+}
+@-webkit-keyframes colorchange {	
+	0% {color: red;} 
+	25% {color: black;}
+	50% {color: #00FF00;} 
+	100% {color: blue;}
+}
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: 95%;
+    margin-bottom: 1em;
+    padding: 20px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+.collapsible {
+    font-size: 20px;
+    background-color: #F0F8FF;
+    font-weight: bold; 
+    border: black;
+}
+.content {
+    padding: 0 18px;
+    /*display: none;*/  
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+</style> 
+</head> 
+<body id = "all"> 
+<h1 class = "heading"> Welcome to our Quant Blog !</h1> 
+
+<button class="collapsible">Purpose of the blog</button>
+<div class="content">
+  <p>This blog is maintained by <a href = "https://iljimae0418.github.io/cs193/a1/personal.html">Luke Kim</a> and Kevin Kim. We are students/programmers studying Computer Science, Physics, Mathematics, Finance and Statistics. We are creative and passionate problem solvers. You can click the links on our names to know more about us. Feel free to contact us! This blog is dedicated to explaining some common algorithms used in trading as well as algorithms that we came up on our own. We will be presenting code along with the explanation of the algorithm. This blog is meant to be educational and we would like to share our knowledge of algorithmic trading with those who are interested. Basic knowledge in programming and Mathematics is required to follow through materials provided in this blog. </p>
+</div>
+
+<br> 
+<br> 
+
+
+<div id="toc_container">
+<p class="toc_title">Contents</p>
+<ul class="toc_list">
+    <li> <a href = "#sma_crossover">1. Simple Moving Average Crossover</a></li>
+    <li> <a href = "#momentum">2. Momentun Strategy</a></li> 
+</ul>
+</div>
+
+
+
+
+
+<script> 
+
+</script> 
+</body> 
+</html> 
