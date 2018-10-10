@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en"> 
+<head> 
+<meta charset="UTF-8">
+<title> Maximum Streak </title> 
+<style>
+*{
+	font-family: sans-serif;
+	margin-left: auto; 
+	margin-right: auto; 
+}
+a:hover{
+	background-color: #FF00FF; /* Fuchsia */  
+}
+.decorate{
+	font-size:300pt;
+	position: absolute;
+	top: 30%; 
+	left: 40%;
+}
+.textdec{
+	position: absolute;
+	top: 30%; 
+	left: 30%;
+}
+</style>
+</head> 
+<body onload = "display()"> 
+<p><span id="days" class = "decorate"> 0 </span></p>
+<p class = "textdec"> seconds passed since you visited this webpage...</p>
+<script>
+function display(){
+	var date = 0; 
+	setInterval(function(){
+		date++;  
+		document.getElementById("days").innerHTML = date; 
+	},1000); 
+}
+</script> 
+</body>
+</html> 
