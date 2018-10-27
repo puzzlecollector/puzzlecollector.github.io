@@ -41,5 +41,18 @@ no files in the directory. But this is a trick, as there are hidden files. To lo
   "DXjZPULLxYr17uwoI01bNLQbtFemEgo7". </p> 
 
 
+<p><center><b><font size = "5"> *** Level 6 -> Level 7 *** </font></b></center></p> 
+<p> This is similar to the previous level, but the difference is that we need to find the password somewhere on the <b>server</b> 
+  as opposed to some directory. This forces us to use the command "find /" which means that we search starting from the root directory. </p> 
+<p> The flags we set for the find the command are the following:  
+  <code> <font size = "4.7"> <center> find / -group bandit6 -user bandit7 -size 33c 2>/dev/null </center></font></code> </p> 
+<p> We have the final command "2>/dev/null" at the end because if we execute the command without 2>/dev/null then we get a lot of 
+  permission denied errors on the server and we have to look through each of the results to see that the valid result is stored in 
+  /var/lib/dpkg/info/bandit7.password. In order to avoid doing this tedious work of checking each standard output, we throw away the 
+  stderr so that we can ignore them. So we see that the password is stored in <b> /var/lib/dpkg/info/bandit7.password </b> and the command 
+  <code> <font size = "4.7"> <center> cat /var/lib/dpkg/info/bandit7.password </center> </font size> </code> </p> 
+<p> Gives us the desired password "HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs". </p> 
+
+
 </body> 
 </head>
