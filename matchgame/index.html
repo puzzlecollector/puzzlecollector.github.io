@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title> Matching </title>
+<meta charset="UTF-8" />
+<style>
+#all {
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	font-family: sans-serif;
+}
+.f{
+	margin: 25px 25px 25px 25px;
+}
+.button{
+	position:relative;
+	top:45px;
+	right: 1050px;
+	font-size:15pt;
+}
+</style>
+</head>
+<body onload = "shuffle(); startTimer()">
+<div id = "all">
+	<img class = "f" src = "back.png" id = "1" onclick = "flip('1')" alt = "card1"/>
+	<img class = "f" src = "back.png" id = "2" onclick = "flip('2')" alt = "card2"/>
+	<img class = "f" src = "back.png" id = "3" onclick = "flip('3')" alt = "card3"/>
+	<img class = "f" src = "back.png" id = "4" onclick = "flip('4')" alt = "card4"/>
+	<img class = "f" src = "back.png" id = "5" onclick = "flip('5')" alt = "card5"/>
+	<img class = "f" src = "back.png" id = "6" onclick = "flip('6')" alt = "card6"/>
+	<img class = "f" src = "back.png" id = "7" onclick = "flip('7')" alt = "card7"/>
+	<img class = "f" src = "back.png" id = "8" onclick = "flip('8')" alt = "card8"/>
+	<img class = "f" src = "back.png" id = "9" onclick = "flip('9')" alt = "card9"/>
+	<img class = "f" src = "back.png" id = "10" onclick = "flip('10')" alt = "card10"/>
+	<img class = "f" src = "back.png" id = "11" onclick = "flip('11')" alt = "card11"/>
+	<img class = "f" src = "back.png" id = "12" onclick = "flip('12')" alt = "card12"/>
+	<img class = "f" src = "back.png" id = "13" onclick = "flip('13')" alt = "card13"/>
+	<img class = "f" src = "back.png" id = "14" onclick = "flip('14')" alt = "card14"/>
+	<img class = "f" src = "back.png" id = "15" onclick = "flip('15')" alt = "card15"/>
+	<img class = "f" src = "back.png" id = "16" onclick = "flip('16')" alt = "card16"/>
+	<img class = "f" src = "back.png" id = "17" onclick = "flip('17')" alt = "card17"/>
+	<img class = "f" src = "back.png" id = "18" onclick = "flip('18')" alt = "card18"/>
+	<img class = "f" src = "back.png" id = "19" onclick = "flip('19')" alt = "card19"/>
+	<img class = "f" src = "back.png" id = "20" onclick = "flip('20')" alt = "card20"/>
+	<img class = "f" src = "back.png" id = "21" onclick = "flip('21')" alt = "card21"/>
+	<img class = "f" src = "back.png" id = "22" onclick = "flip('22')" alt = "card22"/>
+	<img class = "f" src = "back.png" id = "23" onclick = "flip('23')" alt = "card23"/>
+	<img class = "f" src = "back.png" id = "24" onclick = "flip('24')" alt = "card24"/>
+</div>
+<script>
+var clicked = 0;
+var eliminated = 0;
+var opened = [];
+var card_types = ["1clubs.png","2clubs.png","3clubs.png","1hearts.png","2hearts.png","3hearts.png","girl.png","goblin.png",
+"jack.png","joker.png","king.png","queen.png","1clubs2.png","2clubs2.png","3clubs2.png","1hearts2.png","2hearts2.png","3hearts2.png","girl2.png","goblin2.png","jack2.png","joker2.png","king2.png","queen2.png"];
+var enumerate = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"];
+// called upon page load and when we press the restart button
+function shuffle(){
+	// set cards face down
+	for (var i = 0; i < enumerate.length; i++){
+		var cur = document.getElementById(enumerate[i]);
+		cur.src = "back.png";
+	}
+	// knuth shuffle used to shuffle the cards
+	var idx = card_types.length;
+	while (0 !== idx){
+		var ridx = Math.floor(Math.random()*idx);
+		idx = idx-1;
+		var temp = card_types[idx];
+		card_types[idx] = card_types[ridx];
+		card_types[ridx] = temp;
+	}
+}
+// this is where we match or we flip back
+function process(){
+	var firstIdx,secondIdx;
+	for (var i = 0; i < enumerate.length; i++){
+		if (opened[0] === enumerate[i]){
+			firstIdx = i;
+		}
+		if (opened[1] === enumerate[i]){
+			secondIdx = i;
+		}
+	}
+	var s1 = card_types[firstIdx];
+	var s2 = card_types[secondIdx];
+	// forces |s1| <= |s2|
+	if (s1.length > s2.length){
+		var temp = s1;
+		s1 = s2;
+		s2 = temp;
+	}
+	var parsed1 = s1.substring(0,s1.indexOf('.'));
+	var parsed2 = s2.substring(0,s2.indexOf('.')-1);
+	// same card type
+	if (parsed1 === parsed2){
+		for (var i = 0; i < opened.length; i++){
+			var cur_opened = document.getElementById(opened[i]);
+			cur_opened.src = "clear.png";
+			eliminated = eliminated + 1;
+		}
+	}else{
+		for (var i = 0; i < opened.length; i++){
+			var cur_opened = document.getElementById(opened[i]);
+			cur_opened.src = "back.png";
+		}
+	}
+	clicked = 0;
+	opened = [];
+}
+// simulate the action of flipping
+function flip(x){
+	var image = document.getElementById(x);
+	if (image.getAttribute('src') === 'clear.png'){
+		return; // do nothing
+	}
+	if (image.getAttribute('src') === 'back.png' && clicked < 2){
+		image.src = card_types[x-1];
+	}
+	if (opened.length === 0){
+		clicked = clicked + 1;
+		opened.push(x);
+	}else if (opened.length === 1 && opened[0] !== x){
+		clicked = clicked + 1;
+		opened.push(x);
+	}
+	if (clicked === 2){
+		// we have two cards open
+		// we open for 1.5 seconds
+		// if they match change the src of both to clear.png
+		// if not we flip back
+		clicked = clicked + 1;
+		setTimeout(process,1500);
+	}
+}
+// timer
+var startTime,endTime;
+function startTimer(){
+	startTime = new Date();
+}
+function endTimer(){
+	endTime = new Date();
+	var timeDiff = endTime-startTime; // in ms
+	timeDiff /= 1000;
+	var seconds = Math.round(timeDiff);
+	return seconds;
+}
+// check if everything is complete
+function check(){
+	if (eliminated === 24){
+		eliminated = 0; // set to zero
+		var elapsed = endTimer();
+		if (confirm("done! It took you " + elapsed + " seconds. Do you want to replay?")){
+			shuffle();
+		}else{
+			alert("Just refresh the page if you change your mind :)")
+			return;
+		}
+	}
+}
+window.setInterval(function(){
+	check();
+},1000);
+</script>
+</body>
+</html>
