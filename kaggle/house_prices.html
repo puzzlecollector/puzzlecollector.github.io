@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f1f1f1;
+}
+
+/* Header/Blog Title */
+.header {
+  padding: 30px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+}
+
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+  margin-top: 20px;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>House Prices: Advanced Regression Techniques</h2>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2>First Take on Kaggle. A typical regression problem? </h2>
+      <h5>By Luke Kim, Last Updated: 2019/11/11, 6:00PM </h5>
+      <p><b> First Update, 2019/11/11  </b> </p>
+      <img src = "regression 191111.png" alt = "Ranking 2019/11/11. Currently in top 67%. Not bad as a newbie do you think?">
+      <p>Kaggle is a competitive platform for people interested in data science, and according to my experience it works as follows: For a particular problem, we download its dataset (we have training and test data sets) and construct a model which we then train on the training data set. We then make our predictions using the test data set. We then submit our prediction as a .csv file and the kaggle computes the rank of your prediction by using some statistical metric.
+      In this particular, they seem to be using the <a href = "https://en.wikipedia.org/wiki/Root-mean-square_deviation">root mean squared error</a> (i.e. the smaller our error, the higher our rank). </p>
+
+      <p>As an aspiring data scientist, this is the first Kaggle contest I ever took part in. This is a link
+      to the competition <a href = "https://www.kaggle.com/c/house-prices-advanced-regression-techniques">House Prices: Advanced Regression Techniques
+      </a>. As I'm currently taking a course in regression analysis, the first thing I instinctively tried was to fit a multiple linear regression model on the training data. After looking over
+     the data set, I identified a set of variables such as YearBuilt, YearRemodAdd, MSSubClass, OverallQual, OverallCond, GrLivArea, LotArea, BedroomAbvGr, GarageArea, MasVnrArea, TotRmsAbvGrd, Neighborhood, KitchenQual as
+      predictors to predict the response variable, which is SalePrice. These predictor variables were chosen after careful trial and error as well as using common-sense (for instance, we think it is reasonable that the Neighborhood information would be important in determining house sales prices).
+      Also, during the trial and error step, there seemed to be some variables that are strongly correlated, such as X1stFlrSf (square feet area of first floor) and X2ndFlrSf (square feet area of second floor) which actually affected the result of the prediction.Apart from the Neighborhood and the KitchenQual variables, all the other variables are of integer (qualitative) type. Furthermore, Neighborhood and KitchenQual were of type 'factor' in R, so I did not have problems regressing on these predictors.
+      Note that for this particular task, I'll be using the R programming language to submit predictions.</p>
+
+      <p>This is the code I wrote to fit a multiple linear regression model in predicing SalePrice</p>
+      <pre>
+      <code>
+        library(tidyr)
+        house_train <- read.csv('./train.csv')
+        lm.fit <- lm(SalePrice~YearBuilt+YearRemodAdd+MSSubClass+
+                    OverallQual+OverallCond+GrLivArea+LotArea+
+                    BedroomAbvGr+GarageArea+MasVnrArea+TotRmsAbvGrd+
+                    Neighborhood+KitchenQual,data = house_train)
+        summary(lm.fit)
+      </code>
+      </pre>
+      <p> Most of these predictors were statistically significant with very small p-values, and the Multiple R-squared value is 0.8418. Furthermore, the p-value for the F-statistic is < 2.2e-16 which suggests
+      that the predictors are good at explaining the variability in our response. </p>
+      <p> After training the model, we have to fit this model on our test data to get predictions. I encountered a major problem though - there was some missing data provided by Kaggle and they were denoted as NA. Kaggle does not accept a solution with missing rows (it checks if the number of rows of our prediction is equal to the number of rows in the test data table).
+      This means that we cannot just simply get rid of rows with NA values. Fortunately, there was only one missing value for the qualitative variable KitchenQual at row 96, and because KitchenGrade (which is a predictor we did not use in our model yet) had a value of 1 in that row and most of the houses with KitchenGrade equal to 1 had a KitchenQual level of TA of GD, I decided to assign TA to this value.
+    There were some quantitative values missing too, and to get around this I decided to assign some negative value (chose -1) to fill all NA values because the quantitative variables all had a positive value, so it would be possible to differentiate the NAs with some negative value. Below is an R code I wrote to deal with the present NA values and to obtain my prediction. </p>
+
+    <pre>
+      <code>
+        library(tidyverse) # utility functions
+        house_test <- read.csv('./test.csv')
+        v <- c('YearBuilt','YearRemodAdd','MSSubClass','OverallQual',
+              'OverallCond','GrLivArea','LotArea','BedroomAbvGr',
+              'GarageArea','MasVnrArea','TotRmsAbvGrd')
+        temp <- house_test
+        for (i in v){
+          temp[,i][is.na(temp[,i])] <- -1
+        }
+        temp[96,'KitchenQual'] <- factor("TA") # randomly decided to assign TA
+        prediction <- predict(lm.fit,temp)
+        sum(is.na(prediction)) # check if there are any NA valued rows in our prediction
+        submission <- data_frame('Id' = house_test$Id, 'SalePrice' = prediction)
+        write_csv(submission,'submission.csv')
+      </code>
+      </pre>
+      <p> To improve the model, I could examine adding more predictors, checking for more colinearity between predictors, or changing the way I deal with
+       missing values. Another option would be to test if other forms of regression may work, such as polynomial regression. My current error is pretty low at around 0.16, but my aim is
+     to get the mean squared error down to < 0.10. Hopefully I'll come back with another update soon. </p>
+    </div>
+</div>
 
