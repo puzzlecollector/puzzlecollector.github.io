@@ -85,13 +85,14 @@ body {
 
           function Extract(){
             var video = document.getElementById("Link").value;
-            var videoId = video.split('=')[1];
+            var new_videoId = video.split('=')[1];
             var start_time = document.getElementById("startTime").value;
             start_time = start_time.split(':');
             section.start = parseInt(start_time[0])*3600 + parseInt(start_time[1])*60 + parseInt(start_time[2]);
             var end_time = document.getElementById("endTime").value;
             end_time = end_time.split(':');
             section.end = parseInt(end_time[0])*3600 + parseInt(end_time[1])*60 + parseInt(end_time[2]);
+            player.loadVideoById(new_videoId);
           }
 
     </script>
