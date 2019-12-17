@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+  background-color: powderblue;
+  text-align: center;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+</style>
+  <body>
+    <title> Youtube Range Looper</title>
+    <h1> The Range Looper by Luke Kim </h1>
+    <h2><b> Instructions: </b></h2>
+    <p> This web application replays the specified interval of the youtube video you want
+    for an infinitely many times. </p>
+    <p> Below is an example video that plays from interval 30 seconds to
+    35 seconds, infinitely many times. </p>
+    <p> Enter your youtube video url, enter the start and the end interval. </p>
+    <p> Afterwards, press "update" and you are good to go! </p>
+    Video Link: <input type = "text" value = "https://www.youtube.com/watch?v=7VeUPuFGJHk" size = "60" id = "Link"><br><br>
+    Start Time: <input type = "text" value = "00:00:30" id = "startTime">
+    End Time: <input type = "text" value = "00:00:35" id = "endTime">
+    <br><br>
+    <input type = "button" value = "update" id = "updateButton" onclick = "Extract()"><br><br>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+
+    <script>
+          var section = {
+            start: 30,
+            end: 35
+          };
+
+          // 3. This function creates an <iframe> (and YouTube player)
+          //    after the API code downloads.
+          var player;
+          function onYouTubeIframeAPIReady() {
+             // console.log("Y1");
+              player = new YT.Player(
+                'player',
+                {
+                  height: '360',
+                  width: '640',
+                  videoId: '7VeUPuFGJHk',
+                  events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                  }
+                }
+              );
+          }
+
+          function onPlayerReady(event) {
+              player.seekTo(section.start);
+              player.playVideo();
+          }
+
+          function onPlayerStateChange(event) {
+              if (event.data == YT.PlayerState.PLAYING) {
+                  var duration = section.end - section.start + 1;
+                  setTimeout(restartVideoSection, duration * 1000);
+              }
+          }
+
+          function restartVideoSection() {
+            player.seekTo(section.start);
+          }
+
+          function Extract(){
+            var video = document.getElementById("Link").value;
+            var videoId = video.split('=')[1];
+            var start_time = document.getElementById("startTime").value;
+            start_time = start_time.split(':');
+            section.start = parseInt(start_time[0])*3600 + parseInt(start_time[1])*60 + parseInt(start_time[2]);
+            var end_time = document.getElementById("endTime").value;
+            end_time = end_time.split(':');
+            section.end = parseInt(end_time[0])*3600 + parseInt(end_time[1])*60 + parseInt(end_time[2]);
+          }
+
+    </script>
+  </body>
+</html>
