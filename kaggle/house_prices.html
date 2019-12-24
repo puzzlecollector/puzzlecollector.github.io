@@ -6,14 +6,12 @@
 * {
   box-sizing: border-box;
 }
-
 /* Add a gray background color with some padding */
 body {
   font-family: Arial;
   padding: 20px;
   background: #f1f1f1;
 }
-
 /* Header/Blog Title */
 .header {
   padding: 30px;
@@ -21,42 +19,36 @@ body {
   text-align: center;
   background: white;
 }
-
 /* Create two unequal columns that floats next to each other */
 /* Left column */
 .leftcolumn {
   float: left;
   width: 75%;
 }
-
 /* Right column */
 .rightcolumn {
   float: left;
   width: 25%;
   padding-left: 20px;
 }
-
 /* Fake image */
 .fakeimg {
   background-color: #aaa;
   width: 100%;
   padding: 20px;
 }
-
 /* Add a card effect for articles */
 .card {
    background-color: white;
    padding: 20px;
    margin-top: 20px;
 }
-
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
-
 /* Footer */
 .footer {
   padding: 20px;
@@ -64,7 +56,6 @@ body {
   background: #ddd;
   margin-top: 20px;
 }
-
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 800px) {
   .leftcolumn, .rightcolumn {
@@ -83,8 +74,28 @@ body {
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2>First Take on Kaggle. A typical regression problem? </h2>
+      <h2>First Take on Kaggle. The Ames Housing Dataset Problem. </h2>
       <h5>By Luke Kim, Last Updated: 2019/11/11, 6:00PM </h5>
+      <p><b> Second Update, 2019/12/24 </b> </p>
+      <img src = "ames2.png" style = "width:60%;" alt = "Ranking 2019/12/24. Currently in top 67%. Not bad as a newbie do you think?">
+      <p> My second try with the house price prediction competition. This time I tried using a completely different model,
+      namely the gradient boosting machine (GBM) in R. I used the same set of features as my previous attempt with linear regression, and
+      gradient boosting reduced the root mean squared error from 0.16039 to 0.15686. After doing researches here and there,
+      it appears that gradient boosting is the way to go. From what I understand, random forest models build an ensemble of deep
+      independent trees, whereas the GBM builds an ensemble of shallow and weak successive trees with each tree learning and
+      improving on the previous, and when these trees are combined, they produce a powerful committee that outperforms many other models.
+      Note that the score of 0.15686 was obtained without tuning the parameters for GBM (just randomly chose the number of trees to be 10000 and the
+      learning rate to be 0.001). Tuning the GBM parameters by trying various hyperparameter values (via the use of libraries such as caret or mlbench)
+      is expected to increase the prediction accuracy of my model.</p>
+      <p>
+      Now it is somewhat clear what I have to do to improve results. This is the rough outline for my plan
+      <ul>
+        <li> Explore the data a bit more and conduct data imputation and data transformation. Possibly get rid of anomalous data if there is any. </li>
+        <li> Tune the hyperparameters for the GBM model through cross validation and pick the one with the smallest RMSE. </li>
+        <li> Possibly combine the result from the best GBM with results from other models such as random forest, Cubist, linear regression, KNN kernel regression etc. </li>
+      </ul>
+      </p>
+
       <p><b> First Update, 2019/11/11  </b> </p>
       <img src = "regression 191111.png" style = "width:60%;" alt = "Ranking 2019/11/11. Currently in top 67%. Not bad as a newbie do you think?">
       <p>Kaggle is a competitive platform for people interested in data science, and according to my experience it works as follows: For a particular problem, we download its dataset (we have training and test data sets) and construct a model which we then train on the training data set. We then make our predictions using the test data set. We then submit our prediction as a .csv file and the kaggle computes the rank of your prediction by using some statistical metric.
@@ -139,4 +150,3 @@ body {
      to get the mean squared error down to < 0.10. Hopefully I'll come back with another update soon. </p>
     </div>
 </div>
-
