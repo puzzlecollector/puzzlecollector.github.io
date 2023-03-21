@@ -24,7 +24,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		      dataPoints: [
       { x: new Date(2023,02,18,01), y: 324.7099},
       { x: new Date(2023,02,18,05), y: 318.7919, indexLabel:"lowest", markerColor:"DarkSlateGrey", markerType:"cross"},
-      { x: new Date(2023,02,18,09), y: 323.1404},
+			{ x: new Date(2023,02,18,09), y: 323.1404},
       { x: new Date(2023,02,18,13), y: 329.7592},
       { x: new Date(2023,02,18,17), y: 328.4415},
       { x: new Date(2023,02,18,21), y: 327.5622},
@@ -41,9 +41,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
       { x: new Date(2023,02,20,17), y: 371.0},
       { x: new Date(2023,02,20,21), y: 369.5878},
       { x: new Date(2023,02,21,01), y: 375.0783},
-      { x: new Date(2023,02,21,05), y: 375.9481, indexLabel:"highest", markerColor:"red", markerType:"cross"},
+      { x: new Date(2023,02,21,05), y: 375.9481},
       { x: new Date(2023,02,21,09), y: 374.4405},
-      { x: new Date(2023,02,21,13), y: 375.0419}]
+      { x: new Date(2023,02,21,13), y: 375.0419},
+      { x: new Date(2023,02,21,17), y: 378.6142, indexLabel:"highest", markerColor:"red", markerType:"cross"}]
     },
     {type: "line",
      name: "Buy and Hold",
@@ -70,7 +71,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
        { x: new Date(2023,02,21,01), y: 340.18233595656943},
        { x: new Date(2023,02,21,05), y: 341.2378793266991},
        { x: new Date(2023,02,21,09), y: 340.42318170807744},
-       { x: new Date(2023,02,21,13), y: 341.2354217169898}
+       { x: new Date(2023,02,21,13), y: 341.2354217169898},
+       { x: new Date(2023,02,21,17), y: 337.78493768518064}
      ]}]
 });
 chart.render();
